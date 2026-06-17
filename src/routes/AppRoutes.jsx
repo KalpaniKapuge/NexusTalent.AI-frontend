@@ -1,12 +1,58 @@
+import { Navigate, Route, Routes } from "react-router-dom";
+
+import PublicLayout from "../layouts/PublicLayout";
+import AuthLayout from "../layouts/AuthLayout";
+import CandidateLayout from "../layouts/CandidateLayout";
+import EmployerLayout from "../layouts/EmployerLayout";
+import AdminLayout from "../layouts/AdminLayout";
+
+import ProtectedRoute from "./ProtectedRoute";
+import RoleBasedRoute from "./RoleBasedRoute";
+
+import LandingPage from "../pages/public/LandingPage";
+
+import LoginPage from "../pages/auth/LoginPage";
+import RegisterPage from "../pages/auth/RegisterPage";
+import ForgotPasswordPage from "../pages/auth/ForgotPasswordPage";
+import ResetPasswordPage from "../pages/auth/ResetPasswordPage";
+import UnauthorizedPage from "../pages/auth/UnauthorizedPage";
+
+import CandidateDashboard from "../pages/candidate/dashboard/CandidateDashboard";
+import CandidateProfile from "../pages/candidate/profile/CandidateProfile";
+import ResumeUpload from "../pages/candidate/resume/ResumeUpload";
+import ResumeReview from "../pages/candidate/resume/ResumeReview";
+import JobSearch from "../pages/candidate/jobs/JobSearch";
+import JobDetail from "../pages/candidate/jobs/JobDetail";
+import MyApplications from "../pages/candidate/applications/MyApplications";
+import SkillGapAnalysis from "../pages/candidate/skill-gap/SkillGapAnalysis";
+import CandidateNotifications from "../pages/candidate/notifications/CandidateNotifications";
+import CandidateSettings from "../pages/candidate/settings/CandidateSettings";
+
+import EmployerDashboard from "../pages/employer/dashboard/EmployerDashboard";
+import CompanyProfile from "../pages/employer/company/CompanyProfile";
+import PostJob from "../pages/employer/jobs/PostJob";
+import AIJobDescription from "../pages/employer/jobs/AIJobDescription";
+import ManageJobs from "../pages/employer/jobs/ManageJobs";
+import EmployerJobDetail from "../pages/employer/jobs/EmployerJobDetail";
+import JobApplications from "../pages/employer/applications/JobApplications";
+import CandidateDetail from "../pages/employer/applications/CandidateDetail";
+import CandidateRanking from "../pages/employer/applications/CandidateRanking";
+import CandidateComparison from "../pages/employer/applications/CandidateComparison";
+import EmployerReports from "../pages/employer/reports/EmployerReports";
+import EmployerNotifications from "../pages/employer/notifications/EmployerNotifications";
+import EmployerSettings from "../pages/employer/settings/EmployerSettings";
+
+import AdminDashboard from "../pages/admin/dashboard/AdminDashboard";
+
+import NotFoundPage from "../pages/errors/NotFoundPage";
+
 export default function AppRoutes() {
   return (
     <Routes>
-      {/* Public pages */}
       <Route element={<PublicLayout />}>
         <Route path="/" element={<LandingPage />} />
       </Route>
 
-      {/* Auth pages */}
       <Route element={<AuthLayout />}>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
@@ -15,12 +61,20 @@ export default function AppRoutes() {
         <Route path="/unauthorized" element={<UnauthorizedPage />} />
       </Route>
 
-      {/* Protected role-based pages */}
       <Route element={<ProtectedRoute />}>
         <Route element={<RoleBasedRoute allowedRole="candidate" />}>
           <Route path="/candidate" element={<CandidateLayout />}>
             <Route index element={<Navigate to="/candidate/dashboard" replace />} />
             <Route path="dashboard" element={<CandidateDashboard />} />
+            <Route path="profile" element={<CandidateProfile />} />
+            <Route path="resume-upload" element={<ResumeUpload />} />
+            <Route path="resume-review" element={<ResumeReview />} />
+            <Route path="jobs" element={<JobSearch />} />
+            <Route path="jobs/:jobId" element={<JobDetail />} />
+            <Route path="applications" element={<MyApplications />} />
+            <Route path="skill-gap" element={<SkillGapAnalysis />} />
+            <Route path="notifications" element={<CandidateNotifications />} />
+            <Route path="settings" element={<CandidateSettings />} />
           </Route>
         </Route>
 
@@ -28,6 +82,19 @@ export default function AppRoutes() {
           <Route path="/employer" element={<EmployerLayout />}>
             <Route index element={<Navigate to="/employer/dashboard" replace />} />
             <Route path="dashboard" element={<EmployerDashboard />} />
+            <Route path="profile" element={<CompanyProfile />} />
+            <Route path="post-job" element={<PostJob />} />
+            <Route path="ai-job-description" element={<AIJobDescription />} />
+            <Route path="jobs" element={<ManageJobs />} />
+            <Route path="jobs/:jobId" element={<EmployerJobDetail />} />
+            <Route path="jobs/:jobId/applications" element={<JobApplications />} />
+            <Route path="applications" element={<JobApplications />} />
+            <Route path="candidates/:candidateId" element={<CandidateDetail />} />
+            <Route path="candidate-ranking" element={<CandidateRanking />} />
+            <Route path="candidate-comparison" element={<CandidateComparison />} />
+            <Route path="reports" element={<EmployerReports />} />
+            <Route path="notifications" element={<EmployerNotifications />} />
+            <Route path="settings" element={<EmployerSettings />} />
           </Route>
         </Route>
 
@@ -39,7 +106,6 @@ export default function AppRoutes() {
         </Route>
       </Route>
 
-      {/* Not found */}
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );

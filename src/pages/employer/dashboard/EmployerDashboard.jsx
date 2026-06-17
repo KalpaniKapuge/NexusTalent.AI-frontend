@@ -1,92 +1,144 @@
+import { Link } from "react-router-dom";
+import { Briefcase, PlusCircle, TrendingUp, Users } from "lucide-react";
+
+import PageHeader from "../../../components/common/PageHeader";
+import StatCard from "../../../components/common/StatCard";
+import Card from "../../../components/common/Card";
+import Button from "../../../components/common/Button";
+import Badge from "../../../components/common/Badge";
+
+import {
+  employerCandidates,
+  employerJobs,
+} from "../../../data/mockEmployerData";
+
 export default function EmployerDashboard() {
+  const activeJobs = employerJobs.filter((job) => job.status === "Active").length;
+
+  const totalApplicants = employerJobs.reduce(
+    (total, job) => total + job.applicants,
+    0
+  );
+
+  const shortlisted = employerCandidates.filter(
+    (candidate) => candidate.status === "Shortlisted"
+  ).length;
+
   return (
     <div>
-      <div className="mb-7 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-        <div>
-          <h1 className="text-3xl font-black tracking-tight">
-            Employer Dashboard
-          </h1>
+      <PageHeader
+        title="Employer Dashboard"
+        subtitle="Manage job posts, review AI-ranked candidates, shortlist applicants, and send feedback."
+        action={
+          <Link to="/employer/post-job">
+            <Button>
+              <PlusCircle size={18} />
+              Post New Job
+            </Button>
+          </Link>
+        }
+      />
 
-          <p className="mt-2 text-sm leading-6 text-slate-500 dark:text-slate-400">
-            Manage jobs, view AI-ranked applicants, shortlist candidates, and
-            send feedback.
-          </p>
-        </div>
+      <div className="mb-7 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+        <StatCard
+          label="Active Jobs"
+          value={activeJobs}
+          change="Currently published"
+          icon={Briefcase}
+          tone="primary"
+        />
 
-        <button className="rounded-2xl bg-gradient-to-r from-indigo-600 to-fuchsia-600 px-5 py-3 text-sm font-black text-white shadow-xl shadow-indigo-500/25">
-          Post New Job
-        </button>
+        <StatCard
+          label="Total Applicants"
+          value={totalApplicants}
+          change="+42 this week"
+          icon={Users}
+          tone="info"
+        />
+
+        <StatCard
+          label="Shortlisted"
+          value={shortlisted}
+          change="AI-assisted selection"
+          icon={TrendingUp}
+          tone="success"
+        />
+
+        <StatCard
+          label="Average Match"
+          value="78%"
+          change="Across active jobs"
+          icon={TrendingUp}
+          tone="warning"
+        />
       </div>
 
-      <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
-        {[
-          ["Active Jobs", "8", "2 closing soon"],
-          ["Applicants", "248", "+42 this week"],
-          ["Shortlisted", "37", "Across all jobs"],
-          ["Avg Match Score", "78%", "AI ranking"],
-        ].map(([label, value, change]) => (
-          <div
-            key={label}
-            className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900"
-          >
-            <div className="text-sm font-bold text-slate-500 dark:text-slate-400">
-              {label}
-            </div>
-
-            <div className="mt-3 text-3xl font-black">{value}</div>
-
-            <div className="mt-2 text-xs font-bold text-emerald-600 dark:text-emerald-400">
-              {change}
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <div className="mt-7 grid gap-6 lg:grid-cols-2">
-        <div className="rounded-[2rem] border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-900">
-          <h3 className="text-lg font-black">Recruitment Pipeline</h3>
-
-          <div className="mt-5 space-y-3">
-            {[
-              ["Applied", 248],
-              ["AI Ranked", 218],
-              ["Shortlisted", 37],
-              ["Interview", 12],
-              ["Selected", 4],
-            ].map(([label, count]) => (
-              <div
-                key={label}
-                className="flex items-center justify-between rounded-2xl bg-slate-50 px-4 py-3 dark:bg-slate-950"
+      <div className="grid gap-6 xl:grid-cols-2">
+        <Card title="Recent Job Posts">
+          <div className="space-y-4">
+            {employerJobs.map((job) => (
+              <Link
+                key={job.id}
+                to={`/employer/jobs/${job.id}`}
+                className="block rounded-2xl border border-slate-200 p-4 transition hover:-translate-y-1 hover:bg-slate-50 dark:border-slate-800 dark:hover:bg-slate-950"
               >
-                <span className="text-sm font-bold text-slate-500">
-                  {label}
-                </span>
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <h3 className="font-black">{job.title}</h3>
 
-                <span className="text-lg font-black">{count}</span>
-              </div>
+                    <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+                      {job.applicants} applicants · {job.shortlisted} shortlisted
+                    </p>
+                  </div>
+
+                  <Badge
+                    variant={
+                      job.status === "Active"
+                        ? "success"
+                        : job.status === "Draft"
+                        ? "warning"
+                        : "danger"
+                    }
+                  >
+                    {job.status}
+                  </Badge>
+                </div>
+              </Link>
             ))}
           </div>
-        </div>
+        </Card>
 
-        <div className="rounded-[2rem] border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-900">
-          <h3 className="text-lg font-black">AI Recruitment Tools</h3>
-
-          <div className="mt-5 space-y-3">
-            {[
-              "Generate job description",
-              "Rank candidates by match score",
-              "Generate rejection feedback",
-              "Review skill gap report",
-            ].map((item) => (
-              <div
-                key={item}
-                className="rounded-2xl bg-slate-50 p-4 text-sm font-bold dark:bg-slate-950"
+        <Card title="Top Ranked Candidates">
+          <div className="space-y-4">
+            {employerCandidates.slice(0, 3).map((candidate) => (
+              <Link
+                key={candidate.id}
+                to={`/employer/candidates/${candidate.id}`}
+                className="block rounded-2xl border border-slate-200 p-4 transition hover:-translate-y-1 hover:bg-slate-50 dark:border-slate-800 dark:hover:bg-slate-950"
               >
-                {item}
-              </div>
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <h3 className="font-black">{candidate.name}</h3>
+
+                    <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+                      {candidate.title}
+                    </p>
+                  </div>
+
+                  <div className="rounded-full bg-indigo-50 px-3 py-1 text-xs font-black text-indigo-700 dark:bg-indigo-950/30 dark:text-indigo-300">
+                    {candidate.score}% Match
+                  </div>
+                </div>
+              </Link>
             ))}
           </div>
-        </div>
+
+          <div className="mt-5">
+            <Link to="/employer/candidate-ranking">
+              <Button fullWidth>View Full Ranking</Button>
+            </Link>
+          </div>
+        </Card>
       </div>
     </div>
   );
