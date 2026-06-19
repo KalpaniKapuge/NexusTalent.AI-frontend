@@ -46,6 +46,9 @@ import AdminDashboard from "../pages/admin/dashboard/AdminDashboard";
 
 import NotFoundPage from "../pages/errors/NotFoundPage";
 
+import EmployerInterviews from "../pages/employer/interviews/EmployerInterviews";
+import EmployerFeedback from "../pages/employer/feedback/EmployerFeedback";
+
 export default function AppRoutes() {
   return (
     <Routes>
@@ -95,6 +98,8 @@ export default function AppRoutes() {
             <Route path="reports" element={<EmployerReports />} />
             <Route path="notifications" element={<EmployerNotifications />} />
             <Route path="settings" element={<EmployerSettings />} />
+            <Route path="interviews" element={<EmployerInterviews />} />
+            <Route path="feedback" element={<EmployerFeedback />} />
           </Route>
         </Route>
 

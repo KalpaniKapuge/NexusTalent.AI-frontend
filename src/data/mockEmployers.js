@@ -212,3 +212,91 @@ export const employerReportData = [
     rejected: 55,
   },
 ];
+
+export const employerInterviews = [
+  {
+    id: 1,
+    candidateId: 1,
+    candidateName: "Kalpani Kapuge",
+    jobTitle: "Junior React Developer",
+    interviewType: "Technical Interview",
+    date: "2026-06-24",
+    time: "10:30 AM",
+    mode: "Google Meet",
+    status: "Scheduled",
+    interviewer: "Kasun Fernando",
+    notes:
+      "Focus on React component structure, REST API integration, and frontend problem solving.",
+  },
+  {
+    id: 2,
+    candidateId: 2,
+    candidateName: "Dilshan Perera",
+    jobTitle: "Junior React Developer",
+    interviewType: "HR Interview",
+    date: "2026-06-25",
+    time: "02:00 PM",
+    mode: "On-site",
+    status: "Pending",
+    interviewer: "Nimali Silva",
+    notes:
+      "Discuss communication skills, salary expectation, availability, and company culture fit.",
+  },
+  {
+    id: 3,
+    candidateId: 3,
+    candidateName: "Nimasha Silva",
+    jobTitle: "Junior React Developer",
+    interviewType: "Technical Interview",
+    date: "2026-06-20",
+    time: "11:00 AM",
+    mode: "Google Meet",
+    status: "Completed",
+    interviewer: "Tharindu Jayasinghe",
+    notes:
+      "Candidate needs improvement in React, Git workflow, and real-world API integration.",
+  },
+];
+
+export const employerFeedbackTemplates = [
+  {
+    id: 1,
+    title: "Shortlisted Candidate Feedback",
+    type: "Shortlisted",
+    message:
+      "Congratulations. Your profile has been shortlisted for the next stage. Your skills and experience match the job requirements well.",
+  },
+  {
+    id: 2,
+    title: "Rejected Candidate Feedback",
+    type: "Rejected",
+    message:
+      "Thank you for applying. At this stage, your profile does not fully match the required skills for this role. We recommend improving the missing technical skills before applying again.",
+  },
+  {
+    id: 3,
+    title: "Interview Invitation Feedback",
+    type: "Interview",
+    message:
+      "Your application has been reviewed successfully. We would like to invite you for an interview to further discuss your skills, experience, and suitability for the role.",
+  },
+];
+
+export const employerFeedbackHistory = [
+  {
+    id: 1,
+    candidateName: "Kalpani Kapuge",
+    jobTitle: "Junior React Developer",
+    type: "Shortlisted",
+    sentDate: "2026-06-18",
+    status: "Sent",
+  },
+  {
+    id: 2,
+    candidateName: "Nimasha Silva",
+    jobTitle: "Junior React Developer",
+    type: "Rejected",
+    sentDate: "2026-06-17",
+    status: "Sent",
+  },
+];
