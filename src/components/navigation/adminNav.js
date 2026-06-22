@@ -1,23 +1,26 @@
 import {
+  Activity,
   BarChart3,
   Bell,
   Bot,
   Briefcase,
+  FileSearch,
   FileText,
-  History,
   LayoutDashboard,
   Mail,
   Settings,
   ShieldCheck,
-  SlidersHorizontal,
+  Sparkles,
+  UserCog,
   Users,
+  Wand2,
 } from "lucide-react";
 
 import { ROUTES } from "../../utils/routePaths";
 
 export const adminNav = [
   {
-    section: "Management",
+    section: "Main",
     items: [
       {
         label: "Dashboard",
@@ -28,97 +31,106 @@ export const adminNav = [
       {
         label: "Manage Users",
         path: ROUTES.admin.users,
-        icon: Users,
-        active: false,
+        icon: UserCog,
+        active: true,
       },
       {
         label: "Manage Candidates",
         path: ROUTES.admin.candidates,
         icon: Users,
-        active: false,
+        active: true,
       },
       {
         label: "Manage Employers",
         path: ROUTES.admin.employers,
         icon: ShieldCheck,
-        active: false,
-      },
-      {
-        label: "Job Postings",
-        path: ROUTES.admin.jobs,
-        icon: Briefcase,
-        active: false,
+        active: true,
       },
     ],
   },
-  {
-    section: "AI & Research",
+
+    {
+    section: "Recruitment",
     items: [
       {
-        label: "Skill Ontology",
-        path: ROUTES.admin.skills,
-        icon: SlidersHorizontal,
-        active: false,
+        label: "Manage Job Postings",
+        path: ROUTES.admin.jobs,
+        icon: Briefcase,
+        active: true,
       },
+      {
+        label: "Manage Skills",
+        path: ROUTES.admin.skills,
+        icon: Sparkles,
+        active: true,
+      },
+      {
+        label: "Resume Extraction",
+        path: ROUTES.admin.resumeExtractionReview,
+        icon: FileSearch,
+        active: true,
+      },
+    ],
+  },
+
+    {
+    section: "AI Management",
+    items: [
       {
         label: "AI Models",
         path: ROUTES.admin.aiModels,
         icon: Bot,
-        active: false,
+        active: true,
       },
       {
         label: "Model Evaluation",
         path: ROUTES.admin.modelEvaluation,
-        icon: BarChart3,
-        active: false,
-      },
-      {
-        label: "Resume Extraction Review",
-        path: ROUTES.admin.resumeExtractionReview,
-        icon: FileText,
-        active: false,
+        icon: Activity,
+        active: true,
       },
       {
         label: "Chatbot Knowledge",
         path: ROUTES.admin.chatbotKnowledge,
-        icon: Bot,
-        active: false,
+        icon: Wand2,
+        active: true,
       },
-    ],
-  },
-  {
-    section: "System",
-    items: [
       {
         label: "Email Templates",
         path: ROUTES.admin.emailTemplates,
         icon: Mail,
-        active: false,
+        active: true,
       },
+    ],
+  },
+
+    {
+    section: "System",
+    items: [
       {
         label: "Notifications",
         path: ROUTES.admin.notifications,
         icon: Bell,
-        active: false,
+        active: true,
       },
       {
-        label: "Reports & Analytics",
+        label: "Reports",
         path: ROUTES.admin.reports,
         icon: BarChart3,
-        active: false,
+        active: true,
       },
       {
         label: "Audit Logs",
         path: ROUTES.admin.auditLogs,
-        icon: History,
-        active: false,
+        icon: FileText,
+        active: true,
       },
       {
         label: "System Settings",
         path: ROUTES.admin.settings,
         icon: Settings,
-        active: false,
+        active: true,
       },
     ],
   },
 ];
+

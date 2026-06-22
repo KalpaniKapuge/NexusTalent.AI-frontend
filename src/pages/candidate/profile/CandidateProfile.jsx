@@ -1,13 +1,12 @@
 import {
   Award,
   Briefcase,
-  Github,
+  ExternalLink,
   GraduationCap,
-  Linkedin,
+  Link,
   Mail,
   MapPin,
   Phone,
-  User,
 } from "lucide-react";
 
 import PageHeader from "../../../components/common/PageHeader";
@@ -67,12 +66,12 @@ export default function CandidateProfile() {
                 <Badge variant="primary">{candidateProfile.citizenship}</Badge>
 
                 <Badge variant="info">
-                  <Linkedin size={13} className="mr-1" />
+                  <Link size={13} className="mr-1" />
                   LinkedIn
                 </Badge>
 
                 <Badge variant="neutral">
-                  <Github size={13} className="mr-1" />
+                  <ExternalLink size={13} className="mr-1" />
                   GitHub
                 </Badge>
               </div>

@@ -43,6 +43,20 @@ import EmployerNotifications from "../pages/employer/notifications/EmployerNotif
 import EmployerSettings from "../pages/employer/settings/EmployerSettings";
 
 import AdminDashboard from "../pages/admin/dashboard/AdminDashboard";
+import ManageUsers from "../pages/admin/users/ManageUsers";
+import ManageCandidates from "../pages/admin/users/ManageCandidates";
+import ManageEmployers from "../pages/admin/employers/ManageEmployers";
+import ManageJobPostings from "../pages/admin/jobs/ManageJobPostings";
+import ManageSkills from "../pages/admin/skills/ManageSkills";
+import AIModels from "../pages/admin/ai-models/AIModels";
+import ModelEvaluation from "../pages/admin/ai-models/ModelEvaluation";
+import ResumeExtractionReview from "../pages/admin/ai-models/ResumeExtractionReview";
+import ChatbotKnowledgeBase from "../pages/admin/chatbot/ChatbotKnowledgeBase";
+import EmailTemplates from "../pages/admin/email/EmailTemplates";
+import NotificationManagement from "../pages/admin/notifications/NotificationManagement";
+import Reports from "../pages/admin/reports/Reports";
+import AuditLogs from "../pages/admin/audit/AuditLogs";
+import SystemSettings from "../pages/admin/settings/SystemSettings";
 
 import NotFoundPage from "../pages/errors/NotFoundPage";
 
@@ -107,6 +121,23 @@ export default function AppRoutes() {
           <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<Navigate to="/admin/dashboard" replace />} />
             <Route path="dashboard" element={<AdminDashboard />} />
+            <Route path="users" element={<ManageUsers />} />
+            <Route path="candidates" element={<ManageCandidates />} />
+            <Route path="employers" element={<ManageEmployers />} />
+            <Route path="jobs" element={<ManageJobPostings />} />
+            <Route path="skills" element={<ManageSkills />} />
+            <Route path="ai-models" element={<AIModels />} />
+            <Route path="model-evaluation" element={<ModelEvaluation />} />
+            <Route
+              path="resume-extraction-review"
+              element={<ResumeExtractionReview />}
+            />
+            <Route path="chatbot-knowledge" element={<ChatbotKnowledgeBase />} />
+            <Route path="email-templates" element={<EmailTemplates />} />
+            <Route path="notifications" element={<NotificationManagement />} />
+            <Route path="reports" element={<Reports />} />
+            <Route path="audit-logs" element={<AuditLogs />} />
+            <Route path="settings" element={<SystemSettings />} />
           </Route>
         </Route>
       </Route>

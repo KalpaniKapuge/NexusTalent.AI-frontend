@@ -1,10 +1,10 @@
 import {
   Ban,
+  Briefcase,
   CheckCircle2,
-  FileText,
   Search,
+  ShieldCheck,
   Trash2,
-  UserCheck,
   Users,
 } from "lucide-react";
 import { useMemo, useState } from "react";
@@ -14,7 +14,6 @@ import PageHeader from "../../../components/common/PageHeader";
 import Card from "../../../components/common/Card";
 import Button from "../../../components/common/Button";
 import Badge from "../../../components/common/Badge";
-import ProgressBar from "../../../components/common/ProgressBar";
 
 import { adminUsers } from "../../../data/mockAdminData";
 
@@ -26,95 +25,100 @@ function getStatusVariant(status) {
   return "neutral";
 }
 
-const initialCandidates = adminUsers
-  .filter((user) => user.role === "Candidate")
+const initialEmployers = adminUsers
+  .filter((user) => user.role === "Employer")
   .map((user, index) => ({
     ...user,
-    profileCompletion: index === 0 ? 86 : 62,
-    applications: index === 0 ? 8 : 3,
-    resumeStatus: index === 0 ? "Verified" : "Needs Review",
-    mainSkill: index === 0 ? "React Developer" : "Associate Developer",
+    companyName: user.name,
+    industry: index === 0 ? "Software / IT" : "Cloud Services",
+    verificationStatus: user.status === "Active" ? "Verified" : "Pending",
+    jobPosts: index === 0 ? 12 : 0,
+    activeJobs: index === 0 ? 5 : 0,
+    location: index === 0 ? "Colombo, Sri Lanka" : "Kandy, Sri Lanka",
   }));
 
- export default function ManageCandidates() {
-  const [candidates, setCandidates] = useState(initialCandidates);
+  export default function ManageEmployers() {
+  const [employers, setEmployers] = useState(initialEmployers);
   const [search, setSearch] = useState("");
   const [status, setStatus] = useState("All");
 
-  const filteredCandidates = useMemo(() => {
-    return candidates.filter((candidate) => {
+  const filteredEmployers = useMemo(() => {
+    return employers.filter((employer) => {
       const matchesSearch =
-        candidate.name.toLowerCase().includes(search.toLowerCase()) ||
-        candidate.email.toLowerCase().includes(search.toLowerCase()) ||
-        candidate.mainSkill.toLowerCase().includes(search.toLowerCase());
+        employer.companyName.toLowerCase().includes(search.toLowerCase()) ||
+        employer.email.toLowerCase().includes(search.toLowerCase()) ||
+        employer.industry.toLowerCase().includes(search.toLowerCase());
 
       const matchesStatus =
-        status === "All" || candidate.status === status;
+        status === "All" || employer.status === status;
 
       return matchesSearch && matchesStatus;
     });
-  }, [candidates, search, status]);
+  }, [employers, search, status]);
 
-  const updateCandidateStatus = (candidateId, newStatus) => {
-    setCandidates((current) =>
-      current.map((candidate) =>
-        candidate.id === candidateId
+  const updateEmployerStatus = (employerId, newStatus) => {
+    setEmployers((current) =>
+      current.map((employer) =>
+        employer.id === employerId
           ? {
-              ...candidate,
+              ...employer,
               status: newStatus,
+              verificationStatus:
+                newStatus === "Active" ? "Verified" : "Pending",
             }
-          : candidate
+          : employer
       )
     );
 
-    toast.success(`Candidate marked as ${newStatus}.`);
+    toast.success(`Employer marked as ${newStatus}.`);
   };
 
-  const deleteCandidate = (candidateId) => {
-    setCandidates((current) =>
-      current.filter((candidate) => candidate.id !== candidateId)
+  const deleteEmployer = (employerId) => {
+    setEmployers((current) =>
+      current.filter((employer) => employer.id !== employerId)
     );
 
-    toast.success("Candidate removed from list.");
+    toast.success("Employer removed from list.");
   };
-  
+
     return (
     <div>
       <PageHeader
-        title="Manage Candidates"
-        subtitle="Review candidate accounts, resume status, profile completion, and account activity."
+        title="Manage Employers"
+        subtitle="Review employer accounts, company verification, job posting activity, and account status."
       />
 
-      <CandidateSummary candidates={candidates} />
+      <EmployerSummary employers={employers} />
 
-      <CandidateFilters
+      <EmployerFilters
         search={search}
         setSearch={setSearch}
         status={status}
         setStatus={setStatus}
       />
 
-      <CandidateList
-        candidates={filteredCandidates}
-        updateCandidateStatus={updateCandidateStatus}
-        deleteCandidate={deleteCandidate}
+      <EmployerList
+        employers={filteredEmployers}
+        updateEmployerStatus={updateEmployerStatus}
+        deleteEmployer={deleteEmployer}
       />
     </div>
   );
 }
 
-function CandidateSummary({ candidates }) {
-  const activeCount = candidates.filter(
-    (candidate) => candidate.status === "Active"
+function EmployerSummary({ employers }) {
+  const verifiedCount = employers.filter(
+    (employer) => employer.verificationStatus === "Verified"
   ).length;
 
-  const suspendedCount = candidates.filter(
-    (candidate) => candidate.status === "Suspended"
+  const pendingCount = employers.filter(
+    (employer) => employer.status === "Pending"
   ).length;
 
-  const reviewCount = candidates.filter(
-    (candidate) => candidate.resumeStatus === "Needs Review"
-  ).length;
+  const totalActiveJobs = employers.reduce(
+    (total, employer) => total + employer.activeJobs,
+    0
+  );
 
   return (
     <div className="mb-6 grid gap-5 md:grid-cols-4">
@@ -125,9 +129,9 @@ function CandidateSummary({ candidates }) {
           </div>
 
           <div>
-            <div className="text-2xl font-black">{candidates.length}</div>
+            <div className="text-2xl font-black">{employers.length}</div>
             <div className="text-sm text-slate-500 dark:text-slate-400">
-              Candidates
+              Employers
             </div>
           </div>
         </div>
@@ -136,13 +140,13 @@ function CandidateSummary({ candidates }) {
       <Card>
         <div className="flex items-center gap-4">
           <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600 dark:bg-emerald-950/30 dark:text-emerald-300">
-            <UserCheck size={24} />
+            <ShieldCheck size={24} />
           </div>
 
           <div>
-            <div className="text-2xl font-black">{activeCount}</div>
+            <div className="text-2xl font-black">{verifiedCount}</div>
             <div className="text-sm text-slate-500 dark:text-slate-400">
-              Active
+              Verified
             </div>
           </div>
         </div>
@@ -151,13 +155,13 @@ function CandidateSummary({ candidates }) {
       <Card>
         <div className="flex items-center gap-4">
           <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-50 text-amber-600 dark:bg-amber-950/30 dark:text-amber-300">
-            <FileText size={24} />
+            <CheckCircle2 size={24} />
           </div>
 
           <div>
-            <div className="text-2xl font-black">{reviewCount}</div>
+            <div className="text-2xl font-black">{pendingCount}</div>
             <div className="text-sm text-slate-500 dark:text-slate-400">
-              Resume Review
+              Pending
             </div>
           </div>
         </div>
@@ -165,14 +169,14 @@ function CandidateSummary({ candidates }) {
 
       <Card>
         <div className="flex items-center gap-4">
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-red-50 text-red-600 dark:bg-red-950/30 dark:text-red-300">
-            <Ban size={24} />
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-sky-50 text-sky-600 dark:bg-sky-950/30 dark:text-sky-300">
+            <Briefcase size={24} />
           </div>
 
           <div>
-            <div className="text-2xl font-black">{suspendedCount}</div>
+            <div className="text-2xl font-black">{totalActiveJobs}</div>
             <div className="text-sm text-slate-500 dark:text-slate-400">
-              Suspended
+              Active Jobs
             </div>
           </div>
         </div>
@@ -181,7 +185,7 @@ function CandidateSummary({ candidates }) {
   );
 }
 
-function CandidateFilters({ search, setSearch, status, setStatus }) {
+function EmployerFilters({ search, setSearch, status, setStatus }) {
   return (
     <Card className="mb-6">
       <div className="grid gap-4 md:grid-cols-[1fr_220px]">
@@ -191,7 +195,7 @@ function CandidateFilters({ search, setSearch, status, setStatus }) {
           <input
             value={search}
             onChange={(event) => setSearch(event.target.value)}
-            placeholder="Search candidate name, email, or skill..."
+            placeholder="Search company, email, or industry..."
             className="w-full bg-transparent text-sm font-semibold outline-none"
           />
         </div>
@@ -203,24 +207,24 @@ function CandidateFilters({ search, setSearch, status, setStatus }) {
         >
           <option>All</option>
           <option>Active</option>
-          <option>Suspended</option>
           <option>Pending</option>
+          <option>Suspended</option>
         </select>
       </div>
     </Card>
   );
 }
 
-function CandidateList({
-  candidates,
-  updateCandidateStatus,
-  deleteCandidate,
+function EmployerList({
+  employers,
+  updateEmployerStatus,
+  deleteEmployer,
 }) {
-  if (candidates.length === 0) {
+  if (employers.length === 0) {
     return (
       <Card>
         <div className="py-12 text-center">
-          <h3 className="text-lg font-black">No candidates found</h3>
+          <h3 className="text-lg font-black">No employers found</h3>
 
           <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
             Try changing search text or status filter.
@@ -232,74 +236,83 @@ function CandidateList({
 
   return (
     <div className="grid gap-5">
-      {candidates.map((candidate) => (
-        <CandidateCard
-          key={candidate.id}
-          candidate={candidate}
-          updateCandidateStatus={updateCandidateStatus}
-          deleteCandidate={deleteCandidate}
+      {employers.map((employer) => (
+        <EmployerCard
+          key={employer.id}
+          employer={employer}
+          updateEmployerStatus={updateEmployerStatus}
+          deleteEmployer={deleteEmployer}
         />
       ))}
     </div>
   );
 }
 
-function CandidateCard({
-  candidate,
-  updateCandidateStatus,
-  deleteCandidate,
+function EmployerCard({
+  employer,
+  updateEmployerStatus,
+  deleteEmployer,
 }) {
   return (
     <Card hover>
       <div className="flex flex-col gap-5 xl:flex-row xl:items-center xl:justify-between">
         <div className="flex-1">
           <div className="flex flex-wrap items-center gap-3">
-            <h2 className="text-xl font-black">{candidate.name}</h2>
+            <h2 className="text-xl font-black">{employer.companyName}</h2>
 
-            <Badge variant={getStatusVariant(candidate.status)}>
-              {candidate.status}
+            <Badge variant={getStatusVariant(employer.status)}>
+              {employer.status}
             </Badge>
 
             <Badge
               variant={
-                candidate.resumeStatus === "Verified" ? "success" : "warning"
+                employer.verificationStatus === "Verified"
+                  ? "success"
+                  : "warning"
               }
             >
-              {candidate.resumeStatus}
+              {employer.verificationStatus}
             </Badge>
           </div>
 
           <p className="mt-2 text-sm font-bold text-indigo-600">
-            {candidate.email}
+            {employer.email}
           </p>
 
           <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
-            {candidate.mainSkill} · {candidate.applications} applications ·
-            Joined {candidate.joinedDate}
+            {employer.industry} · {employer.location}
           </p>
 
-          <div className="mt-4 max-w-md">
-            <ProgressBar
-              label="Profile Completion"
-              value={candidate.profileCompletion}
-              showValue
-              tone={candidate.profileCompletion >= 80 ? "success" : "warning"}
-            />
+          <div className="mt-4 grid gap-3 sm:grid-cols-3">
+            <div className="rounded-2xl bg-slate-50 p-3 dark:bg-slate-950">
+              <div className="text-lg font-black">{employer.jobPosts}</div>
+              <div className="text-xs text-slate-500">Job Posts</div>
+            </div>
+
+            <div className="rounded-2xl bg-slate-50 p-3 dark:bg-slate-950">
+              <div className="text-lg font-black">{employer.activeJobs}</div>
+              <div className="text-xs text-slate-500">Active Jobs</div>
+            </div>
+
+            <div className="rounded-2xl bg-slate-50 p-3 dark:bg-slate-950">
+              <div className="text-lg font-black">{employer.joinedDate}</div>
+              <div className="text-xs text-slate-500">Joined</div>
+            </div>
           </div>
         </div>
 
         <div className="grid w-full gap-2 sm:grid-cols-3 xl:w-auto">
           <Button
             variant="secondary"
-            onClick={() => updateCandidateStatus(candidate.id, "Active")}
+            onClick={() => updateEmployerStatus(employer.id, "Active")}
           >
             <CheckCircle2 size={16} />
-            Activate
+            Approve
           </Button>
 
           <Button
             variant="danger"
-            onClick={() => updateCandidateStatus(candidate.id, "Suspended")}
+            onClick={() => updateEmployerStatus(employer.id, "Suspended")}
           >
             <Ban size={16} />
             Suspend
@@ -307,7 +320,7 @@ function CandidateCard({
 
           <Button
             variant="danger"
-            onClick={() => deleteCandidate(candidate.id)}
+            onClick={() => deleteEmployer(employer.id)}
           >
             <Trash2 size={16} />
             Delete

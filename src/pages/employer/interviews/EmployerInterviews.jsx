@@ -55,6 +55,54 @@ function getStatusVariant(status) {
   return "neutral";
 }
 
+function InterviewSummary({ interviews }) {
+  const scheduledCount = interviews.filter(
+    (interview) => interview.status === "Scheduled"
+  ).length;
+  const completedCount = interviews.filter(
+    (interview) => interview.status === "Completed"
+  ).length;
+  const cancelledCount = interviews.filter(
+    (interview) => interview.status === "Cancelled"
+  ).length;
+
+  return (
+    <div className="mb-6 grid gap-5 md:grid-cols-3">
+      <Card>
+        <SummaryMetric
+          icon={CalendarDays}
+          label="Scheduled"
+          value={scheduledCount}
+        />
+      </Card>
+      <Card>
+        <SummaryMetric
+          icon={CheckCircle2}
+          label="Completed"
+          value={completedCount}
+        />
+      </Card>
+      <Card>
+        <SummaryMetric icon={XCircle} label="Cancelled" value={cancelledCount} />
+      </Card>
+    </div>
+  );
+}
+
+function SummaryMetric({ icon: Icon, label, value }) {
+  return (
+    <div className="flex items-center gap-4">
+      <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600 dark:bg-indigo-950/30 dark:text-indigo-300">
+        <Icon size={24} />
+      </div>
+      <div>
+        <div className="text-2xl font-black">{value}</div>
+        <div className="text-sm text-slate-500 dark:text-slate-400">{label}</div>
+      </div>
+    </div>
+  );
+}
+
 export default function EmployerInterviews() {
   const [interviews, setInterviews] = useState(initialInterviews);
 

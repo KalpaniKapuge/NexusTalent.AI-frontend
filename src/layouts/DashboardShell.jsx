@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
 
-import Sidebar from "./Sidebar";
-import Topbar from "./Topbar";
+import Sidebar from "../components/layout/Sidebar";
+import Topbar from "../components/layout/Topbar";
 
 export default function DashboardShell({ role }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);

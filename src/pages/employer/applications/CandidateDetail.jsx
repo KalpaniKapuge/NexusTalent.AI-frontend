@@ -1,121 +1,24 @@
-function ApplicationList({
-  candidates,
-  updateCandidateStatus,
-  generateFeedback,
-}) {
-  if (candidates.length === 0) {
-    return (
-      <Card>
-        <div className="py-10 text-center">
-          <h3 className="text-lg font-black">No applications found</h3>
+import {
+  ArrowLeft,
+  CheckCircle2,
+  Mail,
+  MapPin,
+  Phone,
+  UserCheck,
+  UserX,
+  XCircle,
+} from "lucide-react";
+import { Link, useParams } from "react-router-dom";
+import toast from "react-hot-toast";
 
-          <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
-            Try changing your search text.
-          </p>
-        </div>
-      </Card>
-    );
-  }
-
-  return (
-    <div className="grid gap-5">
-      {candidates.map((candidate) => (
-        <CandidateApplicationCard
-          key={candidate.id}
-          candidate={candidate}
-          updateCandidateStatus={updateCandidateStatus}
-          generateFeedback={generateFeedback}
-        />
-      ))}
-    </div>
-  );
-}
-
-function CandidateApplicationCard({
-  candidate,
-  updateCandidateStatus,
-  generateFeedback,
-}) {
-  return (
-    <Card hover>
-      <div className="flex flex-col gap-5 xl:flex-row xl:items-center xl:justify-between">
-        <div className="flex-1">
-          <div className="flex flex-wrap items-center gap-3">
-            <h2 className="text-xl font-black">{candidate.name}</h2>
-
-            <Badge variant={getStatusVariant(candidate.status)}>
-              {candidate.status}
-            </Badge>
-          </div>
-
-          <p className="mt-2 text-sm font-bold text-indigo-600">
-            {candidate.title}
-          </p>
-
-          <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
-            {candidate.location} · Applied {candidate.appliedDate}
-          </p>
-
-          <p className="mt-3 max-w-4xl text-sm leading-6 text-slate-500 dark:text-slate-400">
-            {candidate.summary}
-          </p>
-
-          <div className="mt-4 flex flex-wrap gap-2">
-            {candidate.skills.map((skill) => (
-              <Badge key={skill}>{skill}</Badge>
-            ))}
-          </div>
-        </div>
-
-        <div className="w-full xl:w-72">
-          <ProgressBar
-            label="AI Match Score"
-            value={candidate.score}
-            showValue
-            tone={candidate.score >= 80 ? "success" : "warning"}
-          />
-
-          <div className="mt-4 grid grid-cols-2 gap-2">
-            <Link to={`/employer/candidates/${candidate.id}`}>
-              <Button variant="secondary" fullWidth>
-                <Eye size={16} />
-                View
-              </Button>
-            </Link>
-
-            <Button
-              fullWidth
-              onClick={() =>
-                updateCandidateStatus(candidate.id, "Shortlisted")
-              }
-            >
-              <UserCheck size={16} />
-              Shortlist
-            </Button>
-
-            <Button
-              variant="danger"
-              fullWidth
-              onClick={() => updateCandidateStatus(candidate.id, "Rejected")}
-            >
-              <UserX size={16} />
-              Reject
-            </Button>
-
-            <Button
-              variant="secondary"
-              fullWidth
-              onClick={() => generateFeedback(candidate.name)}
-            >
-              <MessageSquare size={16} />
-              Feedback
-            </Button>
-          </div>
-        </div>
-      </div>
-    </Card>
-  );
-}
+import PageHeader from "../../../components/common/PageHeader";
+import Card from "../../../components/common/Card";
+import Button from "../../../components/common/Button";
+import Badge from "../../../components/common/Badge";
+import ProgressBar from "../../../components/common/ProgressBar";
+import MatchScoreCard from "../../../components/ai/MatchScoreCard";
+import SkillTag from "../../../components/ai/SkillTag";
+import { employerCandidates } from "../../../data/mockEmployerData";
 
 export default function CandidateDetail() {
   const { candidateId } = useParams();
@@ -136,7 +39,7 @@ export default function CandidateDetail() {
     toast.success("Personalized feedback generated successfully.");
   };
 
-    return (
+  return (
     <div>
       <Link
         to="/employer/applications"
@@ -164,7 +67,7 @@ export default function CandidateDetail() {
         }
       />
 
-           <div className="grid gap-6 xl:grid-cols-3">
+      <div className="grid gap-6 xl:grid-cols-3">
         <div className="space-y-6 xl:col-span-2">
           <Card>
             <div className="flex flex-col gap-6 md:flex-row">
@@ -179,16 +82,7 @@ export default function CandidateDetail() {
               <div className="flex-1">
                 <div className="flex flex-wrap items-center gap-3">
                   <h2 className="text-3xl font-black">{candidate.name}</h2>
-
-                  <Badge
-                    variant={
-                      candidate.status === "Shortlisted"
-                        ? "success"
-                        : candidate.status === "Rejected"
-                        ? "danger"
-                        : "warning"
-                    }
-                  >
+                  <Badge variant={getStatusVariant(candidate.status)}>
                     {candidate.status}
                   </Badge>
                 </div>
@@ -206,12 +100,10 @@ export default function CandidateDetail() {
                     <Mail size={16} />
                     {candidate.email}
                   </span>
-
                   <span className="flex items-center gap-2">
                     <Phone size={16} />
                     {candidate.phone}
                   </span>
-
                   <span className="flex items-center gap-2">
                     <MapPin size={16} />
                     {candidate.location}
@@ -223,68 +115,38 @@ export default function CandidateDetail() {
 
           <Card title="AI Score Breakdown">
             <div className="space-y-5">
-              <ProgressBar
-                label="Skill Score"
-                value={candidate.skillScore}
-                showValue
-              />
-
+              <ProgressBar label="Skill Score" value={candidate.skillScore} />
               <ProgressBar
                 label="Experience Score"
                 value={candidate.experienceScore}
                 tone="info"
-                showValue
               />
-
               <ProgressBar
                 label="Education Score"
                 value={candidate.educationScore}
                 tone="success"
-                showValue
               />
-
               <ProgressBar
                 label="Certification Score"
                 value={candidate.certificationScore}
                 tone="warning"
-                showValue
               />
-
               <ProgressBar
                 label="Semantic Similarity"
                 value={candidate.semanticScore}
-                tone="primary"
-                showValue
               />
             </div>
           </Card>
 
-                    <Card title="Education & Experience">
+          <Card title="Education & Experience">
             <div className="space-y-4">
-              <div className="rounded-2xl bg-slate-50 p-4 dark:bg-slate-950">
-                <div className="text-sm font-bold text-slate-500">
-                  Education
-                </div>
-
-                <div className="mt-1 font-black">
-                  {candidate.education}
-                </div>
-              </div>
-
-              <div className="rounded-2xl bg-slate-50 p-4 dark:bg-slate-950">
-                <div className="text-sm font-bold text-slate-500">
-                  Experience
-                </div>
-
-                <div className="mt-1 font-black">
-                  {candidate.experience}
-                </div>
-              </div>
+              <ProfileFact label="Education" value={candidate.education} />
+              <ProfileFact label="Experience" value={candidate.experience} />
             </div>
           </Card>
         </div>
 
-                <div className="space-y-6">
+        <div className="space-y-6">
           <MatchScoreCard score={candidate.score} />
 
           <Card title="Matched Skills">
@@ -332,6 +194,17 @@ export default function CandidateDetail() {
   );
 }
 
+function ProfileFact({ label, value }) {
+  return (
+    <div className="rounded-2xl bg-slate-50 p-4 dark:bg-slate-950">
+      <div className="text-sm font-bold text-slate-500">{label}</div>
+      <div className="mt-1 font-black">{value}</div>
+    </div>
+  );
+}
 
-
- 
+function getStatusVariant(status) {
+  if (status === "Shortlisted") return "success";
+  if (status === "Rejected") return "danger";
+  return "warning";
+}
