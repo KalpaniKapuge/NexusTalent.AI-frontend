@@ -1,20 +1,27 @@
-import { Sparkles } from "lucide-react";
+import { Inbox } from "lucide-react";
 
 import Button from "./Button";
 
 export default function EmptyState({
+  icon: Icon = Inbox,
   title = "No data found",
-  message = "Your information will appear here after you start using the system.",
+  message = "There are no records to display right now.",
   actionLabel,
   onAction,
+  className = "",
 }) {
   return (
-    <div className="rounded-[2rem] border border-dashed border-slate-300 bg-white p-10 text-center dark:border-slate-700 dark:bg-slate-900">
-      <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600 dark:bg-indigo-950/40 dark:text-indigo-300">
-        <Sparkles size={24} />
+    <div
+      className={[
+        "rounded-3xl border border-dashed border-slate-300 bg-white p-10 text-center dark:border-slate-700 dark:bg-slate-900",
+        className,
+      ].join(" ")}
+    >
+      <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-3xl bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-300">
+        <Icon size={32} />
       </div>
 
-      <h3 className="mt-4 text-lg font-black text-slate-950 dark:text-white">
+      <h3 className="mt-5 text-lg font-black text-slate-950 dark:text-white">
         {title}
       </h3>
 
@@ -22,8 +29,8 @@ export default function EmptyState({
         {message}
       </p>
 
-      {actionLabel && (
-        <div className="mt-6">
+      {actionLabel && onAction && (
+        <div className="mt-5">
           <Button onClick={onAction}>{actionLabel}</Button>
         </div>
       )}

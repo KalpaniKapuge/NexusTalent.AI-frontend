@@ -8,36 +8,44 @@ export default function Button({
   onClick,
   className = "",
 }) {
-  const baseClass =
-    "inline-flex items-center justify-center gap-2 rounded-2xl font-black transition-all duration-200 focus:outline-none focus:ring-4 disabled:cursor-not-allowed disabled:opacity-60";
+  const baseClasses =
+    "inline-flex items-center justify-center gap-2 rounded-2xl font-black transition disabled:cursor-not-allowed disabled:opacity-60";
 
-  const variants = {
+  const variantClasses = {
     primary:
-      "bg-gradient-to-r from-indigo-600 to-fuchsia-600 text-white shadow-xl shadow-indigo-500/25 hover:-translate-y-0.5 focus:ring-indigo-200",
+      "bg-indigo-600 text-white shadow-lg shadow-indigo-600/20 hover:bg-indigo-700",
     secondary:
-      "border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800",
-    dark:
-      "bg-slate-950 text-white hover:bg-slate-800 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-200",
+      "bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700",
     danger:
-      "bg-red-600 text-white shadow-xl shadow-red-500/20 hover:bg-red-700 focus:ring-red-200",
+      "bg-red-50 text-red-600 hover:bg-red-100 dark:bg-red-950/30 dark:text-red-300 dark:hover:bg-red-950/50",
+    success:
+      "bg-emerald-50 text-emerald-600 hover:bg-emerald-100 dark:bg-emerald-950/30 dark:text-emerald-300 dark:hover:bg-emerald-950/50",
+    outline:
+      "border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800",
     ghost:
-      "text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-900",
+      "bg-transparent text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800",
   };
 
-  const sizes = {
-    sm: "px-4 py-2 text-xs",
-    md: "px-5 py-3 text-sm",
-    lg: "px-7 py-4 text-base",
+  const sizeClasses = {
+    sm: "px-3 py-2 text-xs",
+    md: "px-4 py-3 text-sm",
+    lg: "px-5 py-4 text-base",
   };
+
+  const widthClass = fullWidth ? "w-full" : "";
 
   return (
     <button
       type={type}
       disabled={disabled}
       onClick={onClick}
-      className={`${baseClass} ${variants[variant]} ${sizes[size]} ${
-        fullWidth ? "w-full" : ""
-      } ${className}`}
+      className={[
+        baseClasses,
+        variantClasses[variant] || variantClasses.primary,
+        sizeClasses[size] || sizeClasses.md,
+        widthClass,
+        className,
+      ].join(" ")}
     >
       {children}
     </button>

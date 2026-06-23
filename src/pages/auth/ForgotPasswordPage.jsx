@@ -1,75 +1,119 @@
-import { ArrowLeft, Mail } from "lucide-react";
+import { ArrowLeft, Bot, Lock, Save } from "lucide-react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
+import { Link, useNavigate } from "react-router-dom";
 
-export default function ForgotPasswordPage() {
-  const [email, setEmail] = useState("");
-  const [sent, setSent] = useState(false);
+import Button from "../../components/common/Button";
 
-  const handleSubmit = async (event) => {
+export default function ResetPasswordPage() {
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
+    password: "",
+    confirmPassword: "",
+  });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const updateField = (field, value) => {
+    setFormData((current) => ({
+      ...current,
+      [field]: value,
+    }));
+  };
+
+  const handleSubmit = (event) => {
     event.preventDefault();
 
-    await new Promise((resolve) => setTimeout(resolve, 600));
+    if (formData.password.length < 6) {
+      toast.error("Password must be at least 6 characters.");
+      return;
+    }
 
-    setSent(true);
-    toast.success("Password reset link sent.");
+    if (formData.password !== formData.confirmPassword) {
+      toast.error("Passwords do not match.");
+      return;
+    }
+
+    try {
+      setIsSubmitting(true);
+
+      toast.success("Password reset successfully.");
+
+      navigate("/login", { replace: true });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-slate-50 px-5 dark:bg-slate-950">
-      <div className="w-full max-w-md rounded-[2rem] border border-slate-200 bg-white p-8 shadow-2xl shadow-slate-200/70 dark:border-slate-800 dark:bg-slate-900 dark:text-white dark:shadow-black/30">
-        <Link to="/" className="text-2xl font-black">
-          NexusTalent<span className="text-indigo-600">.AI</span>
-        </Link>
-
-        {!sent ? (
-          <>
-            <h1 className="mt-8 text-3xl font-black">Reset password</h1>
-
-            <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
-              Enter your email and we will send a password reset link.
-            </p>
-
-            <form onSubmit={handleSubmit} className="mt-8 space-y-5">
-              <div className="flex items-center gap-3 rounded-2xl border border-slate-200 px-4 py-3 dark:border-slate-800">
-                <Mail size={18} className="text-slate-400" />
-
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(event) => setEmail(event.target.value)}
-                  placeholder="you@example.com"
-                  className="w-full bg-transparent text-sm font-semibold outline-none"
-                  required
-                />
-              </div>
-
-              <button className="w-full rounded-2xl bg-indigo-600 px-5 py-4 text-sm font-black text-white">
-                Send Reset Link
-              </button>
-            </form>
-          </>
-        ) : (
-          <div className="mt-8">
-            <h1 className="text-3xl font-black">Check your inbox</h1>
-
-            <p className="mt-3 text-sm leading-6 text-slate-500 dark:text-slate-400">
-              We sent a password reset link to{" "}
-              <span className="font-black text-slate-950 dark:text-white">
-                {email}
-              </span>
-              .
-            </p>
+    <div className="flex min-h-screen items-center justify-center bg-slate-50 p-5 dark:bg-slate-950">
+      <div className="w-full max-w-md rounded-3xl border border-slate-200 bg-white p-6 shadow-xl dark:border-slate-800 dark:bg-slate-900">
+        <div className="mb-7 text-center">
+          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-3xl bg-indigo-50 text-indigo-600 dark:bg-indigo-950/30 dark:text-indigo-300">
+            <Bot size={32} />
           </div>
-        )}
+
+          <h1 className="text-3xl font-black">Reset Password</h1>
+
+          <p className="mt-2 text-sm leading-6 text-slate-500 dark:text-slate-400">
+            Create a new password for your NexusTalent.AI account.
+          </p>
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <div>
+            <label className="mb-2 block text-sm font-black">
+              New Password
+            </label>
+
+            <div className="flex items-center gap-3 rounded-2xl border border-slate-200 px-4 py-3 dark:border-slate-800">
+              <Lock size={18} className="text-slate-400" />
+
+              <input
+                type="password"
+                value={formData.password}
+                onChange={(event) =>
+                  updateField("password", event.target.value)
+                }
+                placeholder="Enter new password"
+                className="w-full bg-transparent text-sm font-semibold outline-none"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="mb-2 block text-sm font-black">
+              Confirm Password
+            </label>
+
+            <div className="flex items-center gap-3 rounded-2xl border border-slate-200 px-4 py-3 dark:border-slate-800">
+              <Lock size={18} className="text-slate-400" />
+
+              <input
+                type="password"
+                value={formData.confirmPassword}
+                onChange={(event) =>
+                  updateField("confirmPassword", event.target.value)
+                }
+                placeholder="Confirm new password"
+                className="w-full bg-transparent text-sm font-semibold outline-none"
+              />
+            </div>
+          </div>
+
+          <Button type="submit" fullWidth disabled={isSubmitting}>
+            <Save size={18} />
+            {isSubmitting ? "Saving..." : "Reset Password"}
+          </Button>
+        </form>
 
         <Link
           to="/login"
-          className="mt-8 inline-flex items-center gap-2 text-sm font-black text-indigo-600"
+          className="mt-6 flex items-center justify-center gap-2 text-sm font-black text-indigo-600 hover:underline"
         >
           <ArrowLeft size={16} />
-          Back to login
+          Back to Login
         </Link>
       </div>
     </div>

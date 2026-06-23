@@ -1,81 +1,110 @@
-/* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useMemo, useState } from "react";
-import { MOCK_USERS } from "../data/mockUsers";
 
 const AuthContext = createContext(null);
 
+const STORAGE_KEY = "nexustalent-user";
+
+const MOCK_USERS = {
+  "candidate@demo.com": {
+    id: 1,
+    role: "candidate",
+    name: "Kalpani Kapuge",
+    email: "candidate@demo.com",
+    avatar: "KK",
+  },
+  "employer@demo.com": {
+    id: 2,
+    role: "employer",
+    name: "TechCorp Ltd",
+    email: "employer@demo.com",
+    avatar: "TC",
+  },
+  "admin@demo.com": {
+    id: 3,
+    role: "admin",
+    name: "System Admin",
+    email: "admin@demo.com",
+    avatar: "SA",
+  },
+};
+
+function getInitialUser() {
+  const savedUser = localStorage.getItem(STORAGE_KEY);
+
+  if (!savedUser) {
+    return null;
+  }
+
+  try {
+    return JSON.parse(savedUser);
+  } catch {
+    localStorage.removeItem(STORAGE_KEY);
+    return null;
+  }
+}
+
+function createAvatar(email) {
+  return email.slice(0, 2).toUpperCase();
+}
+
+function createNameFromEmail(email) {
+  return email.split("@")[0].replaceAll(".", " ");
+}
+
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(() => {
-    const savedUser = localStorage.getItem("nexustalent-user");
-    return savedUser ? JSON.parse(savedUser) : null;
-  });
+  const [user, setUser] = useState(getInitialUser);
 
-  const login = async ({ email, password, role }) => {
-    await new Promise((resolve) => setTimeout(resolve, 600));
-
-    const foundUser = MOCK_USERS.find(
-      (item) =>
-        item.email.toLowerCase() === email.toLowerCase() &&
-        item.password === password &&
-        item.role === role
-    );
-
-    if (!foundUser) {
-      throw new Error("Invalid email, password, or selected role.");
+  const login = (email, password, role = "candidate") => {
+    if (!email || !password) {
+      throw new Error("Email and password are required.");
     }
 
-    const loggedUser = {
-      id: foundUser.id,
-      name: foundUser.name,
-      email: foundUser.email,
-      role: foundUser.role,
-      avatar: foundUser.avatar,
-      status: foundUser.status,
+    const normalizedEmail = email.trim().toLowerCase();
+    const mockUser = MOCK_USERS[normalizedEmail];
+
+    const loggedUser = mockUser || {
+      id: Date.now(),
+      role,
+      name: createNameFromEmail(normalizedEmail),
+      email: normalizedEmail,
+      avatar: createAvatar(normalizedEmail),
     };
 
     setUser(loggedUser);
-    localStorage.setItem("nexustalent-user", JSON.stringify(loggedUser));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(loggedUser));
 
     return loggedUser;
   };
 
-  const register = async ({ name, email, role }) => {
-    await new Promise((resolve) => setTimeout(resolve, 600));
-
-    const newUser = {
-      id: Date.now(),
-      name,
-      email,
-      role,
-      avatar: name
-        ? name
-            .split(" ")
-            .map((part) => part[0])
-            .join("")
-            .slice(0, 2)
-            .toUpperCase()
-        : "NT",
-      status: "Active",
-    };
-
-    setUser(newUser);
-    localStorage.setItem("nexustalent-user", JSON.stringify(newUser));
-
-    return newUser;
-  };
-
   const logout = () => {
     setUser(null);
-    localStorage.removeItem("nexustalent-user");
+    localStorage.removeItem(STORAGE_KEY);
+  };
+
+  const updateUser = (updates) => {
+    setUser((currentUser) => {
+      if (!currentUser) {
+        return null;
+      }
+
+      const updatedUser = {
+        ...currentUser,
+        ...updates,
+      };
+
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedUser));
+
+      return updatedUser;
+    });
   };
 
   const value = useMemo(
     () => ({
       user,
-      isAuthenticated: Boolean(user),
       login,
-      register,
       logout,
+      updateUser,
+      isAuthenticated: Boolean(user),
     }),
     [user]
   );
@@ -84,5 +113,11 @@ export function AuthProvider({ children }) {
 }
 
 export function useAuth() {
-  return useContext(AuthContext);
+  const context = useContext(AuthContext);
+
+  if (!context) {
+    throw new Error("useAuth must be used inside AuthProvider");
+  }
+
+  return context;
 }
