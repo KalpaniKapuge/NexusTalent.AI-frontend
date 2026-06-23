@@ -1,4 +1,3 @@
-/* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
 const ThemeContext = createContext(null);
@@ -13,21 +12,31 @@ const FONT_STYLE_MAP = {
   modern:
     "Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif",
   clean:
-    "Arial, Helvetica, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
-  elegant: "Georgia, Cambria, Times New Roman, serif",
+    "ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif",
+  elegant: "Georgia, Cambria, Times New Roman, Times, serif",
 };
 
+function getStoredValue(key, fallbackValue) {
+  const storedValue = localStorage.getItem(key);
+
+  if (!storedValue) {
+    return fallbackValue;
+  }
+
+  return storedValue;
+}
+
 export function ThemeProvider({ children }) {
-  const [theme, setTheme] = useState(
-    () => localStorage.getItem("nexustalent-theme") || "light"
+  const [theme, setTheme] = useState(() =>
+    getStoredValue("nexustalent-theme", "light")
   );
 
-  const [fontSize, setFontSize] = useState(
-    () => localStorage.getItem("nexustalent-font-size") || "medium"
+  const [fontSize, setFontSize] = useState(() =>
+    getStoredValue("nexustalent-font-size", "medium")
   );
 
-  const [fontStyle, setFontStyle] = useState(
-    () => localStorage.getItem("nexustalent-font-style") || "modern"
+  const [fontStyle, setFontStyle] = useState(() =>
+    getStoredValue("nexustalent-font-style", "modern")
   );
 
   useEffect(() => {
@@ -39,16 +48,31 @@ export function ThemeProvider({ children }) {
       root.classList.remove("dark");
     }
 
-    root.style.fontSize = FONT_SIZE_MAP[fontSize];
-    root.style.fontFamily = FONT_STYLE_MAP[fontStyle];
-
     localStorage.setItem("nexustalent-theme", theme);
+  }, [theme]);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    const selectedFontSize = FONT_SIZE_MAP[fontSize] || FONT_SIZE_MAP.medium;
+
+    root.style.fontSize = selectedFontSize;
+
     localStorage.setItem("nexustalent-font-size", fontSize);
+  }, [fontSize]);
+
+  useEffect(() => {
+    const selectedFontStyle =
+      FONT_STYLE_MAP[fontStyle] || FONT_STYLE_MAP.modern;
+
+    document.body.style.fontFamily = selectedFontStyle;
+
     localStorage.setItem("nexustalent-font-style", fontStyle);
-  }, [theme, fontSize, fontStyle]);
+  }, [fontStyle]);
 
   const toggleTheme = () => {
-    setTheme((current) => (current === "dark" ? "light" : "dark"));
+    setTheme((currentTheme) =>
+      currentTheme === "dark" ? "light" : "dark"
+    );
   };
 
   const value = useMemo(
@@ -70,5 +94,11 @@ export function ThemeProvider({ children }) {
 }
 
 export function useTheme() {
-  return useContext(ThemeContext);
+  const context = useContext(ThemeContext);
+
+  if (!context) {
+    throw new Error("useTheme must be used inside ThemeProvider");
+  }
+
+  return context;
 }
