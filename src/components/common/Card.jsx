@@ -9,9 +9,9 @@ export default function Card({
   return (
     <div
       className={[
-        "rounded-3xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900",
+        "rounded-lg border border-slate-200 bg-white p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-950",
         hover
-          ? "transition hover:-translate-y-0.5 hover:shadow-xl hover:shadow-slate-200/60 dark:hover:shadow-slate-950/40"
+          ? "transition hover:-translate-y-0.5 hover:border-orange-300 hover:shadow-md dark:hover:border-orange-900"
           : "",
         className,
       ].join(" ")}
@@ -19,7 +19,7 @@ export default function Card({
       {(title || subtitle || action) && (
         <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <div>
-            {title && <h2 className="text-lg font-black">{title}</h2>}
+            {title && <h2 className="text-lg font-semibold">{title}</h2>}
 
             {subtitle && (
               <p className="mt-1 text-sm leading-6 text-slate-500 dark:text-slate-400">

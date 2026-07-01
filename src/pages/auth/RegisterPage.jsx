@@ -8,7 +8,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 
 import Button from "../../components/common/Button";
 import { useAuth } from "../../context/AuthContext";
@@ -22,14 +22,19 @@ function getDashboardPath(role) {
 
 export default function RegisterPage() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const { login, updateUser } = useAuth();
+  const requestedRole = searchParams.get("role");
+  const initialRole = ["candidate", "employer", "admin"].includes(requestedRole)
+    ? requestedRole
+    : "candidate";
 
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
     password: "",
     confirmPassword: "",
-    role: "candidate",
+    role: initialRole,
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -75,6 +80,12 @@ export default function RegisterPage() {
 
       updateUser({
         name: formData.fullName,
+        companyName:
+          formData.role === "employer" ? formData.fullName : undefined,
+        tenantSlug:
+          formData.role === "employer"
+            ? formData.fullName.trim().toLowerCase().replaceAll(" ", "-")
+            : undefined,
         avatar: formData.fullName.slice(0, 2).toUpperCase(),
       });
 
@@ -92,34 +103,34 @@ export default function RegisterPage() {
     <div className="grid min-h-screen lg:grid-cols-2">
       <div className="hidden bg-slate-950 p-10 text-white lg:flex lg:flex-col lg:justify-between">
         <div className="flex items-center gap-3">
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-600">
+          <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-orange-600">
             <Bot size={26} />
           </div>
 
           <div>
             <h1 className="text-xl font-black">NexusTalent.AI</h1>
             <p className="text-sm font-bold text-slate-400">
-              Intelligent Recruitment Automation
+              Company-wise Recruitment SaaS
             </p>
           </div>
         </div>
 
         <div>
           <h2 className="max-w-xl text-4xl font-black leading-tight">
-            Create your account and start using AI-powered recruitment tools.
+            Create your workspace in a company-wise recruitment platform.
           </h2>
 
           <p className="mt-5 max-w-lg leading-7 text-slate-300">
-            Candidates can manage resumes and applications. Employers can post
-            jobs and rank applicants. Admins can manage the full platform.
+            Candidates manage profiles and applications. Companies manage their
+            own recruitment pipelines. Admins control the full SaaS platform.
           </p>
         </div>
 
         <div className="grid gap-4">
           {[
             "Candidate, employer, and admin portals",
-            "Resume parsing and skill gap analysis",
-            "Job matching and smart notifications",
+            "Company-wise employer workspaces",
+            "AI ranking, skill gaps, feedback, and reports",
           ].map((item) => (
             <div key={item} className="rounded-2xl bg-white/10 p-4 font-bold">
               {item}
@@ -138,14 +149,16 @@ export default function RegisterPage() {
             <h1 className="text-3xl font-black">Create Account</h1>
 
             <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
-              Register to access your NexusTalent.AI dashboard.
+              Register as a candidate, company employer, or platform admin.
             </p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
               <label className="mb-2 block text-sm font-black">
-                Full Name / Company Name
+                {formData.role === "employer"
+                  ? "Company Name"
+                  : "Full Name"}
               </label>
 
               <div className="flex items-center gap-3 rounded-2xl border border-slate-200 px-4 py-3 dark:border-slate-800">

@@ -8,7 +8,7 @@ export default function ProgressBar({
   const safeValue = Math.max(0, Math.min(Number(value) || 0, 100));
 
   const toneClasses = {
-    primary: "bg-indigo-600",
+    primary: "bg-orange-600",
     success: "bg-emerald-500",
     warning: "bg-amber-500",
     danger: "bg-red-500",
@@ -21,13 +21,13 @@ export default function ProgressBar({
       {(label || showValue) && (
         <div className="mb-2 flex items-center justify-between gap-3">
           {label && (
-            <p className="text-sm font-black text-slate-700 dark:text-slate-200">
+            <p className="text-sm font-semibold text-slate-700 dark:text-slate-200">
               {label}
             </p>
           )}
 
           {showValue && (
-            <p className="text-sm font-black text-slate-500 dark:text-slate-400">
+            <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">
               {safeValue}%
             </p>
           )}

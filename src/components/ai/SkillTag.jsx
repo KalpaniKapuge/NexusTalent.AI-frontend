@@ -12,12 +12,12 @@ export default function SkillTag({ name, level, type = "default" }) {
 
   return (
     <span
-      className={`inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-black ${styles[type]}`}
+      className={`inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-xs font-semibold ${styles[type]}`}
     >
       {name}
 
       {level && (
-        <span className="rounded-full bg-white/70 px-2 py-0.5 text-[10px] dark:bg-black/20">
+        <span className="rounded-md bg-white/70 px-2 py-0.5 text-[10px] dark:bg-black/20">
           {level}
         </span>
       )}

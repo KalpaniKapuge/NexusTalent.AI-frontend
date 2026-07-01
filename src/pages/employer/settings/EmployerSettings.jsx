@@ -136,7 +136,7 @@ function AppearanceSettings({
                 onClick={() => setFontStyle(style)}
                 className={`rounded-2xl border p-4 text-sm font-black capitalize transition ${
                   fontStyle === style
-                    ? "border-fuchsia-600 bg-fuchsia-50 text-fuchsia-700 dark:bg-fuchsia-950/30 dark:text-fuchsia-300"
+                    ? "border-orange-600 bg-orange-50 text-orange-700 dark:bg-orange-950/30 dark:text-orange-300"
                     : "border-slate-200 hover:bg-slate-50 dark:border-slate-800 dark:hover:bg-slate-950"
                 }`}
               >

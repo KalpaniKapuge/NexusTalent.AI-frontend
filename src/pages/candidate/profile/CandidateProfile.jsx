@@ -30,7 +30,7 @@ export default function CandidateProfile() {
       <div className="grid gap-6 xl:grid-cols-3">
         <Card className="xl:col-span-2">
           <div className="flex flex-col gap-6 md:flex-row md:items-start">
-            <div className="flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-indigo-600 to-fuchsia-600 text-3xl font-black text-white shadow-xl shadow-indigo-500/30">
+            <div className="flex h-24 w-24 items-center justify-center rounded-lg bg-orange-600 text-3xl font-semibold text-white shadow-sm">
               KK
             </div>
 

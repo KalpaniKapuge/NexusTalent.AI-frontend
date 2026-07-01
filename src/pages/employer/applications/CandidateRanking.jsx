@@ -113,7 +113,7 @@ function RankingCard({ candidate, rank }) {
     <Card hover>
       <div className="flex flex-col gap-5 xl:flex-row xl:items-center xl:justify-between">
         <div className="flex items-start gap-4">
-          <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-indigo-600 text-lg font-black text-white">
+          <div className="flex h-14 w-14 items-center justify-center rounded-lg bg-orange-600 text-lg font-semibold text-white">
             {rank === 1 ? <Trophy size={24} /> : `#${rank}`}
           </div>
 
@@ -134,7 +134,7 @@ function RankingCard({ candidate, rank }) {
               </Badge>
             </div>
 
-            <p className="mt-1 text-sm font-bold text-indigo-600">
+            <p className="mt-1 text-sm font-bold text-orange-600">
               {candidate.title}
             </p>
 

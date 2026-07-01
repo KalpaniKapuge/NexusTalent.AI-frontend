@@ -17,23 +17,33 @@ import { useTheme } from "../../context/ThemeContext";
 
 const features = [
   {
+    title: "Company-wise Employer Workspaces",
+    description:
+      "Each company manages its own jobs, applicants, interviews, and reports.",
+    icon: Briefcase,
+  },
+  {
     title: "AI Job Description Generator",
-    description: "Create professional and bias-aware job descriptions.",
+    description:
+      "Create professional, role-specific job descriptions for each company.",
     icon: Zap,
   },
   {
     title: "Intelligent CV Screening",
-    description: "Rank candidates using skills, experience, and AI matching.",
+    description:
+      "Rank applicants per job using skills, experience, and AI matching.",
     icon: Search,
   },
   {
     title: "Skill Gap Analysis",
-    description: "Show candidates what skills they need to improve.",
+    description:
+      "Help candidates compare their profile against job requirements.",
     icon: TrendingUp,
   },
   {
     title: "Personalized Feedback",
-    description: "Generate helpful feedback for rejected candidates.",
+    description:
+      "Generate useful feedback for candidates after recruitment decisions.",
     icon: MessageSquare,
   },
 ];
@@ -47,12 +57,12 @@ export default function LandingPage() {
       <nav className="fixed inset-x-0 top-0 z-40 border-b border-slate-200/70 bg-white/80 px-5 py-4 backdrop-blur-2xl dark:border-slate-800 dark:bg-slate-950/80">
         <div className="mx-auto flex max-w-7xl items-center justify-between">
           <Link to="/" className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-600 to-fuchsia-600 text-white shadow-lg shadow-indigo-500/30">
+            <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-orange-600 text-white shadow-sm">
               <Bot size={22} />
             </div>
 
             <div className="text-xl font-black tracking-tight">
-              NexusTalent<span className="text-indigo-600">.AI</span>
+              NexusTalent<span className="text-orange-600">.AI</span>
             </div>
           </Link>
 
@@ -93,32 +103,30 @@ export default function LandingPage() {
 
       {/* Hero */}
       <section className="relative overflow-hidden px-5 pb-20 pt-36">
-        <div className="absolute left-1/2 top-24 h-96 w-96 -translate-x-1/2 rounded-full bg-indigo-500/20 blur-3xl" />
-        <div className="absolute right-0 top-40 h-72 w-72 rounded-full bg-fuchsia-500/20 blur-3xl" />
-
         <div className="relative mx-auto max-w-7xl text-center">
-          <div className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-indigo-50 px-4 py-2 text-sm font-black text-indigo-700 dark:border-indigo-900 dark:bg-indigo-950/40 dark:text-indigo-300">
+          <div className="mx-auto mb-6 inline-flex items-center gap-2 rounded-md border border-orange-200 bg-orange-50 px-4 py-2 text-sm font-semibold text-orange-700 dark:border-orange-900 dark:bg-orange-950/40 dark:text-orange-300">
             <Sparkles size={16} />
-            AI-Powered Recruitment Automation System
+            Company-wise SaaS Recruitment Automation Platform
           </div>
 
           <h1 className="mx-auto max-w-5xl text-5xl font-black tracking-tight sm:text-7xl">
-            Hire smarter. Grow faster.{" "}
-            <span className="bg-gradient-to-r from-indigo-600 to-fuchsia-600 bg-clip-text text-transparent">
-              Get hired with AI.
+            NexusTalent.AI{" "}
+            <span className="text-orange-600">
+              connects companies and candidates.
             </span>
           </h1>
 
           <p className="mx-auto mt-7 max-w-3xl text-lg leading-8 text-slate-600 dark:text-slate-300">
-            NexusTalent.AI automates job description creation, CV ranking,
-            candidate matching, skill gap analysis, personalized feedback, and
-            chatbot support.
+            A web-based recruitment platform with Candidate, Employer, and
+            Admin portals. Employers represent individual companies and manage
+            their own job postings, applications, AI rankings, interviews,
+            feedback, and reports.
           </p>
 
           <div className="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Link
               to="/register?role=candidate"
-              className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-indigo-600 to-fuchsia-600 px-7 py-4 text-sm font-black text-white shadow-2xl shadow-indigo-500/30 transition hover:-translate-y-1"
+              className="inline-flex items-center gap-2 rounded-lg bg-orange-600 px-7 py-4 text-sm font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-orange-700"
             >
               Start as Candidate <ArrowRight size={18} />
             </Link>
@@ -135,17 +143,17 @@ export default function LandingPage() {
           <div className="mt-8 flex flex-wrap justify-center gap-4 text-sm font-bold text-slate-500 dark:text-slate-400">
             <span className="flex items-center gap-2">
               <CheckCircle2 size={16} className="text-emerald-500" />
-              Smart matching
+              Company-wise workspaces
             </span>
 
             <span className="flex items-center gap-2">
               <CheckCircle2 size={16} className="text-emerald-500" />
-              Transparent feedback
+              Multi-portal architecture
             </span>
 
             <span className="flex items-center gap-2">
               <CheckCircle2 size={16} className="text-emerald-500" />
-              Skill gap analysis
+              AI-assisted recruitment
             </span>
           </div>
         </div>
@@ -155,15 +163,15 @@ export default function LandingPage() {
       <section id="features" className="px-5 py-20">
         <div className="mx-auto max-w-7xl">
           <div className="mb-12 text-center">
-            <p className="text-sm font-black uppercase tracking-[0.3em] text-indigo-600">
+            <p className="text-sm font-semibold uppercase text-orange-600">
               Features
             </p>
             <h2 className="mt-3 text-4xl font-black tracking-tight">
-              Complete AI recruitment workflow
+              Complete SaaS-style recruitment workflow
             </h2>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-5">
             {features.map((feature) => {
               const Icon = feature.icon;
 
@@ -172,7 +180,7 @@ export default function LandingPage() {
                   key={feature.title}
                   className="rounded-[2rem] border border-slate-200 bg-white p-7 shadow-xl shadow-slate-200/70 transition hover:-translate-y-2 hover:shadow-2xl dark:border-slate-800 dark:bg-slate-900 dark:shadow-black/30"
                 >
-                  <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-600 to-fuchsia-600 text-white">
+                  <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-lg bg-orange-600 text-white">
                     <Icon size={24} />
                   </div>
 
@@ -205,9 +213,9 @@ export default function LandingPage() {
 
           <div className="grid gap-6 md:grid-cols-3">
             {[
-              "Candidate uploads CV and confirms extracted profile.",
-              "Employer posts AI-generated job description.",
-              "AI ranks candidates and generates feedback.",
+              "Candidate creates a profile, uploads a resume, and applies for jobs.",
+              "Each company manages its own job postings and applicants.",
+              "Admin manages users, companies, jobs, AI models, and reports.",
             ].map((text, index) => (
               <div
                 key={text}
@@ -228,7 +236,7 @@ export default function LandingPage() {
       <footer className="border-t border-slate-200 px-5 py-8 dark:border-slate-800">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 text-sm text-slate-500 dark:text-slate-400 md:flex-row">
           <div className="font-black text-slate-950 dark:text-white">
-            NexusTalent<span className="text-indigo-600">.AI</span>
+            NexusTalent<span className="text-orange-600">.AI</span>
           </div>
 
           <div>© 2026 NexusTalent.AI. Final Year Research Project.</div>

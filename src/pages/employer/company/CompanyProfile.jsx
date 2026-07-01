@@ -24,15 +24,15 @@ export default function CompanyProfile() {
   return (
     <div>
       <PageHeader
-        title="Company Profile"
-        subtitle="Manage employer brand, company information, contact details, and verification status."
+        title="Company Workspace Profile"
+        subtitle="Manage your company identity, employer brand, contact details, and platform verification status."
         action={<Button onClick={handleSave}>Save Changes</Button>}
       />
 
       <div className="grid gap-6 xl:grid-cols-3">
         <Card className="xl:col-span-2">
           <div className="flex flex-col gap-6 md:flex-row">
-            <div className="flex h-24 w-24 items-center justify-center rounded-[2rem] bg-gradient-to-br from-indigo-600 to-fuchsia-600 text-white shadow-xl shadow-indigo-500/30">
+            <div className="flex h-24 w-24 items-center justify-center rounded-lg bg-orange-600 text-white shadow-sm">
               <Building2 size={42} />
             </div>
 
@@ -48,7 +48,7 @@ export default function CompanyProfile() {
                 </Badge>
               </div>
 
-              <p className="mt-2 text-sm font-bold text-indigo-600">
+              <p className="mt-2 text-sm font-semibold text-orange-600">
                 {employerCompany.industry}
               </p>
 
@@ -81,20 +81,20 @@ export default function CompanyProfile() {
           </div>
         </Card>
 
-        <Card title="Company Summary">
+        <Card title="Workspace Summary">
           <div className="space-y-4">
-            <div className="rounded-2xl bg-slate-50 p-4 dark:bg-slate-950">
+            <div className="rounded-lg bg-slate-50 p-4 dark:bg-zinc-900">
               <div className="text-sm font-bold text-slate-500">
                 Company Size
               </div>
 
               <div className="mt-1 flex items-center gap-2 font-black">
-                <Users size={18} className="text-indigo-600" />
+                <Users size={18} className="text-orange-600" />
                 {employerCompany.size}
               </div>
             </div>
 
-            <div className="rounded-2xl bg-slate-50 p-4 dark:bg-slate-950">
+            <div className="rounded-lg bg-slate-50 p-4 dark:bg-zinc-900">
               <div className="text-sm font-bold text-slate-500">
                 Founded
               </div>
@@ -106,11 +106,11 @@ export default function CompanyProfile() {
 
             <div className="rounded-2xl bg-emerald-50 p-4 dark:bg-emerald-950/30">
               <div className="text-sm font-black text-emerald-700 dark:text-emerald-300">
-                Verified employer account
+                Verified company workspace
               </div>
 
               <p className="mt-1 text-sm text-emerald-700/80 dark:text-emerald-300/80">
-                Candidates can trust your published job postings.
+                Candidates can trust job postings published by this company.
               </p>
             </div>
           </div>
@@ -122,23 +122,23 @@ export default function CompanyProfile() {
           <div className="grid gap-4">
             <input
               defaultValue={employerCompany.name}
-              className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold outline-none focus:border-indigo-600 dark:border-slate-800 dark:bg-slate-950"
+              className="rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm font-semibold outline-none focus:border-orange-600 dark:border-zinc-800 dark:bg-black"
             />
 
             <input
               defaultValue={employerCompany.industry}
-              className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold outline-none focus:border-indigo-600 dark:border-slate-800 dark:bg-slate-950"
+              className="rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm font-semibold outline-none focus:border-orange-600 dark:border-zinc-800 dark:bg-black"
             />
 
             <input
               defaultValue={employerCompany.website}
-              className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold outline-none focus:border-indigo-600 dark:border-slate-800 dark:bg-slate-950"
+              className="rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm font-semibold outline-none focus:border-orange-600 dark:border-zinc-800 dark:bg-black"
             />
 
             <textarea
               rows={5}
               defaultValue={employerCompany.description}
-              className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold outline-none focus:border-indigo-600 dark:border-slate-800 dark:bg-slate-950"
+              className="rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm font-semibold outline-none focus:border-orange-600 dark:border-zinc-800 dark:bg-black"
             />
           </div>
         </Card>
@@ -147,17 +147,17 @@ export default function CompanyProfile() {
           <div className="grid gap-4">
             <input
               defaultValue={employerCompany.email}
-              className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold outline-none focus:border-indigo-600 dark:border-slate-800 dark:bg-slate-950"
+              className="rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm font-semibold outline-none focus:border-orange-600 dark:border-zinc-800 dark:bg-black"
             />
 
             <input
               defaultValue={employerCompany.phone}
-              className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold outline-none focus:border-indigo-600 dark:border-slate-800 dark:bg-slate-950"
+              className="rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm font-semibold outline-none focus:border-orange-600 dark:border-zinc-800 dark:bg-black"
             />
 
             <input
               defaultValue={employerCompany.location}
-              className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold outline-none focus:border-indigo-600 dark:border-slate-800 dark:bg-slate-950"
+              className="rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm font-semibold outline-none focus:border-orange-600 dark:border-zinc-800 dark:bg-black"
             />
 
             <Button onClick={handleSave}>Update Company Profile</Button>

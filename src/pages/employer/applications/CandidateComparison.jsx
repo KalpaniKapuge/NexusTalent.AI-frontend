@@ -110,7 +110,7 @@ function CandidateCompareCard({ candidate }) {
   return (
     <Card title={candidate.name}>
       <div className="mb-5 flex items-center gap-3">
-        <div className="flex h-11 w-11 items-center justify-center rounded-full bg-indigo-600 font-black text-white">
+        <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-orange-600 font-semibold text-white">
           {candidate.name
             .split(" ")
             .map((name) => name[0])
@@ -127,7 +127,7 @@ function CandidateCompareCard({ candidate }) {
         </div>
       </div>
 
-      <div className="mb-5 rounded-2xl bg-gradient-to-r from-indigo-600 to-fuchsia-600 p-4 text-white">
+      <div className="mb-5 rounded-lg bg-zinc-950 p-4 text-white dark:border dark:border-zinc-800 dark:bg-black">
         <div className="flex items-center gap-2 text-sm font-black">
           <Scale size={16} />
           Overall AI Score

@@ -1,56 +1,28 @@
 import {
+  ArrowRight,
   CalendarDays,
   CheckCircle2,
   Clock,
   MapPin,
+  Plus,
   Video,
   XCircle,
 } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 import PageHeader from "../../../components/common/PageHeader";
 import Card from "../../../components/common/Card";
 import Button from "../../../components/common/Button";
 import Badge from "../../../components/common/Badge";
-
-const initialInterviews = [
-  {
-    id: 1,
-    candidateName: "Kalpani Kapuge",
-    jobTitle: "Junior React Developer",
-    date: "2026-06-25",
-    time: "10:00 AM",
-    mode: "Online",
-    location: "Google Meet",
-    status: "Scheduled",
-  },
-  {
-    id: 2,
-    candidateName: "Dilshan Perera",
-    jobTitle: "Junior React Developer",
-    date: "2026-06-26",
-    time: "2:30 PM",
-    mode: "On-site",
-    location: "TechCorp Lanka, Colombo",
-    status: "Scheduled",
-  },
-  {
-    id: 3,
-    candidateName: "Nimasha Silva",
-    jobTitle: "Backend Developer Intern",
-    date: "2026-06-20",
-    time: "11:30 AM",
-    mode: "Online",
-    location: "Microsoft Teams",
-    status: "Completed",
-  },
-];
+import { employerInterviews } from "../../../data/mockEmployerData";
 
 function getStatusVariant(status) {
   if (status === "Scheduled") return "primary";
   if (status === "Completed") return "success";
   if (status === "Cancelled") return "danger";
+  if (status === "Pending") return "warning";
 
   return "neutral";
 }
@@ -92,11 +64,11 @@ function InterviewSummary({ interviews }) {
 function SummaryMetric({ icon: Icon, label, value }) {
   return (
     <div className="flex items-center gap-4">
-      <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600 dark:bg-indigo-950/30 dark:text-indigo-300">
+      <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-orange-50 text-orange-600 dark:bg-orange-950/30 dark:text-orange-300">
         <Icon size={24} />
       </div>
       <div>
-        <div className="text-2xl font-black">{value}</div>
+        <div className="text-2xl font-semibold">{value}</div>
         <div className="text-sm text-slate-500 dark:text-slate-400">{label}</div>
       </div>
     </div>
@@ -104,7 +76,7 @@ function SummaryMetric({ icon: Icon, label, value }) {
 }
 
 export default function EmployerInterviews() {
-  const [interviews, setInterviews] = useState(initialInterviews);
+  const [interviews, setInterviews] = useState(employerInterviews);
 
   const updateInterviewStatus = (interviewId, status) => {
     setInterviews((current) =>
@@ -126,6 +98,14 @@ export default function EmployerInterviews() {
       <PageHeader
         title="Interviews"
         subtitle="Manage candidate interviews, schedules, meeting modes, and interview status."
+        action={
+          <Link to="/employer/interviews/schedule">
+            <Button>
+              <Plus size={16} />
+              Schedule Interview
+            </Button>
+          </Link>
+        }
       />
 
       <InterviewSummary interviews={interviews} />
@@ -157,7 +137,7 @@ function InterviewList({ interviews, updateInterviewStatus }) {
                 <Badge variant="info">{interview.mode}</Badge>
               </div>
 
-              <p className="mt-2 text-sm font-bold text-indigo-600">
+              <p className="mt-2 text-sm font-semibold text-orange-600">
                 {interview.jobTitle}
               </p>
 
@@ -178,12 +158,19 @@ function InterviewList({ interviews, updateInterviewStatus }) {
                   ) : (
                     <MapPin size={16} />
                   )}
-                  {interview.location}
+                  {interview.mode}
                 </span>
               </div>
             </div>
 
             <div className="flex flex-wrap gap-2">
+              <Link to={`/employer/interviews/${interview.id}`}>
+                <Button variant="outline">
+                  Details
+                  <ArrowRight size={16} />
+                </Button>
+              </Link>
+
               <Button
                 variant="secondary"
                 onClick={() =>

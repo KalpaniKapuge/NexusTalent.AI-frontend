@@ -27,8 +27,8 @@ export default function EmployerDashboard() {
   return (
     <div>
       <PageHeader
-        title="Employer Dashboard"
-        subtitle="Manage job posts, review AI-ranked candidates, shortlist applicants, and send feedback."
+        title="Company Recruitment Dashboard"
+        subtitle="Manage your company's job posts, applicants, AI-ranked candidates, interviews, and feedback."
         action={
           <Link to="/employer/post-job">
             <Button>

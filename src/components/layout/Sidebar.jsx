@@ -14,8 +14,8 @@ const navByRole = {
 
 const roleLabel = {
   candidate: "Candidate Portal",
-  employer: "Employer Portal",
-  admin: "Admin Panel",
+  employer: "Company Workspace",
+  admin: "Platform Admin",
 };
 
 export default function Sidebar({ role, open, setOpen }) {
@@ -41,7 +41,7 @@ export default function Sidebar({ role, open, setOpen }) {
       )}
 
       <aside
-        className={`fixed inset-y-0 left-0 z-50 flex w-72 flex-col border-r border-slate-200 bg-white/95 shadow-2xl shadow-slate-200/70 backdrop-blur-xl transition-transform duration-300 dark:border-slate-800 dark:bg-slate-950/95 dark:shadow-black/30 lg:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-50 flex w-72 flex-col border-r border-slate-200 bg-white/95 shadow-xl shadow-slate-200/60 backdrop-blur-xl transition-transform duration-300 dark:border-zinc-800 dark:bg-black/95 dark:shadow-black/30 lg:translate-x-0 ${
           open ? "translate-x-0" : "-translate-x-full"
         }`}
       >
@@ -52,13 +52,13 @@ export default function Sidebar({ role, open, setOpen }) {
             onClick={() => navigate(`/${role}/dashboard`)}
             className="flex items-center gap-3"
           >
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-600 to-fuchsia-600 text-white shadow-lg shadow-indigo-500/30">
+            <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-orange-600 text-white shadow-sm">
               <Bot size={22} />
             </div>
 
             <div className="text-left">
-              <div className="text-lg font-black tracking-tight text-slate-950 dark:text-white">
-                NexusTalent<span className="text-indigo-600">.AI</span>
+              <div className="text-lg font-semibold text-slate-950 dark:text-white">
+                NexusTalent<span className="text-orange-600">.AI</span>
               </div>
 
               <div className="text-xs font-bold text-slate-500 dark:text-slate-400">
@@ -88,13 +88,13 @@ export default function Sidebar({ role, open, setOpen }) {
                 {section.items.map((item) => {
                   const Icon = item.icon;
 
-                  if (!item.active) {
+                  if (item.active === false) {
                     return (
                       <button
                         key={item.label}
                         type="button"
                         disabled
-                        className="flex w-full cursor-not-allowed items-center justify-between gap-3 rounded-2xl px-4 py-3 text-sm font-bold text-slate-400 dark:text-slate-600"
+                        className="flex w-full cursor-not-allowed items-center justify-between gap-3 rounded-lg px-4 py-3 text-sm font-medium text-slate-400 dark:text-zinc-600"
                       >
                         <span className="flex items-center gap-3">
                           <Icon size={18} />
@@ -114,10 +114,10 @@ export default function Sidebar({ role, open, setOpen }) {
                       to={item.path}
                       onClick={() => setOpen(false)}
                       className={({ isActive }) =>
-                        `flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-black transition-all ${
+                        `flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-semibold transition-all ${
                           isActive
-                            ? "bg-gradient-to-r from-indigo-600 to-fuchsia-600 text-white shadow-lg shadow-indigo-500/25"
-                            : "text-slate-600 hover:bg-slate-100 hover:text-slate-950 dark:text-slate-300 dark:hover:bg-slate-900 dark:hover:text-white"
+                            ? "bg-orange-600 text-white shadow-sm"
+                            : "text-slate-600 hover:bg-slate-100 hover:text-slate-950 dark:text-zinc-300 dark:hover:bg-zinc-900 dark:hover:text-white"
                         }`
                       }
                     >
@@ -133,18 +133,18 @@ export default function Sidebar({ role, open, setOpen }) {
 
         {/* User card */}
         <div className="border-t border-slate-200 p-4 dark:border-slate-800">
-          <div className="mb-3 flex items-center gap-3 rounded-2xl bg-slate-100 p-3 dark:bg-slate-900">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-indigo-600 text-sm font-black text-white">
+          <div className="mb-3 flex items-center gap-3 rounded-lg bg-slate-100 p-3 dark:bg-zinc-900">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-orange-600 text-sm font-semibold text-white">
               {user?.avatar || "U"}
             </div>
 
             <div className="min-w-0">
-              <div className="truncate text-sm font-black text-slate-950 dark:text-white">
-                {user?.name || "User"}
+              <div className="truncate text-sm font-semibold text-slate-950 dark:text-white">
+                {user?.companyName || user?.name || "User"}
               </div>
 
               <div className="truncate text-xs font-semibold text-slate-500 dark:text-slate-400">
-                {user?.email || "user@nexustalent.ai"}
+                {user?.tenantSlug || user?.email || "user@nexustalent.ai"}
               </div>
             </div>
           </div>
@@ -152,7 +152,7 @@ export default function Sidebar({ role, open, setOpen }) {
           <button
             type="button"
             onClick={handleLogout}
-            className="flex w-full items-center justify-center gap-2 rounded-2xl border border-red-200 px-4 py-3 text-sm font-black text-red-600 transition hover:bg-red-50 dark:border-red-900/50 dark:hover:bg-red-950/30"
+            className="flex w-full items-center justify-center gap-2 rounded-lg border border-red-200 px-4 py-3 text-sm font-semibold text-red-600 transition hover:bg-red-50 dark:border-red-900/50 dark:hover:bg-red-950/30"
           >
             <LogOut size={16} />
             Sign Out

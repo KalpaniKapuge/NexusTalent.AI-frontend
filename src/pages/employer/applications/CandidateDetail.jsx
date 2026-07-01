@@ -71,7 +71,7 @@ export default function CandidateDetail() {
         <div className="space-y-6 xl:col-span-2">
           <Card>
             <div className="flex flex-col gap-6 md:flex-row">
-              <div className="flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-indigo-600 to-fuchsia-600 text-3xl font-black text-white">
+              <div className="flex h-24 w-24 items-center justify-center rounded-lg bg-orange-600 text-3xl font-semibold text-white">
                 {candidate.name
                   .split(" ")
                   .map((name) => name[0])

@@ -1,4 +1,6 @@
 export const employerCompany = {
+  id: "company-techcorp",
+  tenantSlug: "techcorp-lanka",
   name: "TechCorp Lanka",
   industry: "Software / IT",
   size: "51 - 200 Employees",
@@ -15,6 +17,7 @@ export const employerCompany = {
 export const employerJobs = [
   {
     id: 1,
+    companyId: "company-techcorp",
     title: "Junior React Developer",
     department: "Engineering",
     type: "Full-time",
@@ -34,6 +37,7 @@ export const employerJobs = [
   },
   {
     id: 2,
+    companyId: "company-techcorp",
     title: "Backend Developer Intern",
     department: "Engineering",
     type: "Internship",
@@ -53,6 +57,7 @@ export const employerJobs = [
   },
   {
     id: 3,
+    companyId: "company-techcorp",
     title: "AI Application Developer",
     department: "AI Team",
     type: "Full-time",
@@ -75,6 +80,7 @@ export const employerJobs = [
 export const employerCandidates = [
   {
     id: 1,
+    companyId: "company-techcorp",
     jobId: 1,
     name: "Kalpani Kapuge",
     title: "Software Engineering Undergraduate",
@@ -99,6 +105,7 @@ export const employerCandidates = [
   },
   {
     id: 2,
+    companyId: "company-techcorp",
     jobId: 1,
     name: "Dilshan Perera",
     title: "Junior Frontend Developer",
@@ -123,6 +130,7 @@ export const employerCandidates = [
   },
   {
     id: 3,
+    companyId: "company-techcorp",
     jobId: 1,
     name: "Nimasha Silva",
     title: "Associate Software Developer",

@@ -23,7 +23,7 @@ export default function CandidateDashboard() {
     <div>
       <PageHeader
         title="Candidate Dashboard"
-        subtitle="Track your job search, resume analysis, AI job matches, applications, and skill improvement roadmap."
+        subtitle="Track your profile, resume analysis, applications, AI job matches, company feedback, and skill improvement roadmap."
         action={
           <Link to="/candidate/jobs">
             <Button>Browse Jobs</Button>
@@ -31,14 +31,14 @@ export default function CandidateDashboard() {
         }
       />
 
-      <div className="mb-7 rounded-[2rem] bg-gradient-to-r from-indigo-600 to-fuchsia-600 p-6 text-white shadow-2xl shadow-indigo-500/30">
+      <div className="mb-7 rounded-lg bg-zinc-950 p-6 text-white shadow-sm dark:border dark:border-zinc-800 dark:bg-black">
         <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
           <div>
             <h2 className="text-2xl font-black">
               Your profile is {candidateProfile.profileCompletion}% complete
             </h2>
 
-            <p className="mt-2 max-w-2xl text-sm leading-6 text-indigo-100">
+            <p className="mt-2 max-w-2xl text-sm leading-6 text-orange-100">
               Complete your resume upload, skills, certifications, and
               preferences to get better AI job matches.
             </p>

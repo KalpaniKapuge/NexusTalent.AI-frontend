@@ -21,8 +21,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             toastOptions={{
               duration: 3000,
               style: {
-                borderRadius: "16px",
-                fontWeight: "700",
+                borderRadius: "8px",
+                fontFamily: "Roboto, Arial, sans-serif",
+                fontWeight: "600",
               },
             }}
           />

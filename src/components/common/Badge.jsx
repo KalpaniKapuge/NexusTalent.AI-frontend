@@ -5,7 +5,7 @@ export default function Badge({
 }) {
   const variantClasses = {
     primary:
-      "bg-indigo-50 text-indigo-700 ring-indigo-200 dark:bg-indigo-950/30 dark:text-indigo-300 dark:ring-indigo-800",
+      "bg-orange-50 text-orange-700 ring-orange-200 dark:bg-orange-950/30 dark:text-orange-300 dark:ring-orange-900",
     success:
       "bg-emerald-50 text-emerald-700 ring-emerald-200 dark:bg-emerald-950/30 dark:text-emerald-300 dark:ring-emerald-800",
     warning:
@@ -21,7 +21,7 @@ export default function Badge({
   return (
     <span
       className={[
-        "inline-flex items-center rounded-full px-3 py-1 text-xs font-black ring-1",
+        "inline-flex items-center rounded-md px-2.5 py-1 text-xs font-semibold ring-1",
         variantClasses[variant] || variantClasses.neutral,
         className,
       ].join(" ")}

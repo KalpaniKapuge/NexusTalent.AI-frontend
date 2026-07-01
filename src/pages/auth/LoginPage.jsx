@@ -69,7 +69,7 @@ export default function LoginPage() {
 
   return (
     <div className="grid min-h-screen lg:grid-cols-2">
-      <div className="hidden bg-indigo-600 p-10 text-white lg:flex lg:flex-col lg:justify-between">
+      <div className="hidden bg-zinc-950 p-10 text-white lg:flex lg:flex-col lg:justify-between">
         <div className="flex items-center gap-3">
           <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/15">
             <Bot size={26} />
@@ -77,29 +77,29 @@ export default function LoginPage() {
 
           <div>
             <h1 className="text-xl font-black">NexusTalent.AI</h1>
-            <p className="text-sm font-bold text-indigo-100">
-              Intelligent Recruitment Automation
+            <p className="text-sm font-bold text-zinc-300">
+              Company-wise Recruitment SaaS
             </p>
           </div>
         </div>
 
         <div>
           <h2 className="max-w-xl text-4xl font-black leading-tight">
-            AI-powered hiring platform for candidates, employers, and admins.
+            Web-based recruitment platform for candidates, companies, and admins.
           </h2>
 
-          <p className="mt-5 max-w-lg leading-7 text-indigo-100">
-            Automate job description creation, resume screening, candidate
-            ranking, skill gap analysis, and recruitment notifications in one
-            smart platform.
+          <p className="mt-5 max-w-lg leading-7 text-zinc-300">
+            Each company manages its own jobs and applicants, while candidates
+            apply across the platform and admins manage users, AI models, and
+            reports.
           </p>
         </div>
 
         <div className="grid gap-4">
           {[
-            "AI resume parsing and ranking",
-            "Skill gap analysis and feedback",
-            "Employer and candidate portals",
+            "Company-wise employer workspaces",
+            "Candidate, employer, and admin portals",
+            "AI ranking, skill gaps, feedback, and reports",
           ].map((item) => (
             <div key={item} className="flex items-center gap-3">
               <ShieldCheck size={20} />
@@ -119,7 +119,7 @@ export default function LoginPage() {
             <h1 className="text-3xl font-black">Welcome Back</h1>
 
             <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
-              Login to continue to your recruitment dashboard.
+              Login to continue to your portal workspace.
             </p>
           </div>
 
@@ -216,7 +216,7 @@ export default function LoginPage() {
                 onClick={() => fillDemoAccount("employer@demo.com", "employer")}
                 className="rounded-2xl bg-white px-4 py-3 text-left text-xs font-bold text-slate-600 transition hover:bg-indigo-50 dark:bg-slate-900 dark:text-slate-300 dark:hover:bg-indigo-950/30"
               >
-                Employer: employer@demo.com / demo123
+                Employer Company: employer@demo.com / demo123
               </button>
 
               <button

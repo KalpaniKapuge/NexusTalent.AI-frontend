@@ -27,7 +27,7 @@ export default function ResetPasswordPage() {
     <div className="flex min-h-screen items-center justify-center bg-slate-50 px-5 dark:bg-slate-950">
       <div className="w-full max-w-md rounded-[2rem] border border-slate-200 bg-white p-8 shadow-2xl shadow-slate-200/70 dark:border-slate-800 dark:bg-slate-900 dark:text-white dark:shadow-black/30">
         <Link to="/" className="text-2xl font-black">
-          NexusTalent<span className="text-indigo-600">.AI</span>
+          NexusTalent<span className="text-orange-600">.AI</span>
         </Link>
 
         <h1 className="mt-8 text-3xl font-black">Create new password</h1>
@@ -63,7 +63,7 @@ export default function ResetPasswordPage() {
             />
           </div>
 
-          <button className="w-full rounded-2xl bg-indigo-600 px-5 py-4 text-sm font-black text-white">
+          <button className="w-full rounded-lg bg-orange-600 px-5 py-4 text-sm font-semibold text-white">
             Reset Password
           </button>
         </form>

@@ -9,7 +9,7 @@ import Button from "../../../components/common/Button";
 import Badge from "../../../components/common/Badge";
 
 const fieldClass =
-  "w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold outline-none focus:border-indigo-600 dark:border-slate-800 dark:bg-slate-950";
+  "w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm font-semibold outline-none focus:border-orange-600 dark:border-zinc-800 dark:bg-black";
 
 const labelClass = "mb-2 block text-sm font-black";
 
@@ -127,7 +127,7 @@ function StepIndicator({ step }) {
           key={item}
           className={`flex h-10 w-10 items-center justify-center rounded-full text-sm font-black ${
             step >= item
-              ? "bg-indigo-600 text-white"
+              ? "bg-orange-600 text-white"
               : "bg-slate-100 text-slate-400 dark:bg-slate-800"
           }`}
         >
@@ -319,7 +319,7 @@ function ReviewStep({ form, skillsList }) {
           </p>
         </div>
 
-        <div className="mt-5 rounded-2xl bg-indigo-50 p-4 text-sm font-bold text-indigo-700 dark:bg-indigo-950/30 dark:text-indigo-300">
+        <div className="mt-5 rounded-lg bg-orange-50 p-4 text-sm font-bold text-orange-700 dark:bg-orange-950/30 dark:text-orange-300">
           Deadline: {form.deadline || "Not selected"}
         </div>
       </div>

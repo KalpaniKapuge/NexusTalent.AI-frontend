@@ -9,17 +9,17 @@ export default function MatchScoreCard({
     score >= 80 ? "success" : score >= 60 ? "warning" : "danger";
 
   return (
-    <div className="rounded-[2rem] border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-900">
+    <div className="rounded-lg border border-slate-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-950">
       <div className="flex items-center justify-between gap-4">
         <div>
-          <h3 className="text-lg font-black">{title}</h3>
+          <h3 className="text-lg font-semibold">{title}</h3>
 
           <p className="mt-1 text-sm leading-6 text-slate-500 dark:text-slate-400">
             {description}
           </p>
         </div>
 
-        <div className="text-4xl font-black text-indigo-600">{score}%</div>
+        <div className="text-4xl font-semibold text-orange-600">{score}%</div>
       </div>
 
       <div className="mt-5">

@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom";
 
 import Sidebar from "../components/layout/Sidebar";
 import Topbar from "../components/layout/Topbar";
+import RecruitmentChatbot from "../components/chatbot/RecruitmentChatbot";
 
 export default function DashboardShell({ role }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -18,6 +19,8 @@ export default function DashboardShell({ role }) {
           <Outlet />
         </main>
       </div>
+
+      <RecruitmentChatbot role={role} />
     </div>
   );
 }

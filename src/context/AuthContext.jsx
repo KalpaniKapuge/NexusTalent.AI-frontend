@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useMemo, useState } from "react";
 
 const AuthContext = createContext(null);
@@ -15,6 +16,9 @@ const MOCK_USERS = {
   "employer@demo.com": {
     id: 2,
     role: "employer",
+    companyId: "company-techcorp",
+    companyName: "TechCorp Lanka",
+    tenantSlug: "techcorp-lanka",
     name: "TechCorp Ltd",
     email: "employer@demo.com",
     avatar: "TC",
@@ -65,6 +69,12 @@ export function AuthProvider({ children }) {
     const loggedUser = mockUser || {
       id: Date.now(),
       role,
+      companyId: role === "employer" ? `company-${Date.now()}` : undefined,
+      companyName: role === "employer" ? createNameFromEmail(normalizedEmail) : undefined,
+      tenantSlug:
+        role === "employer"
+          ? createNameFromEmail(normalizedEmail).replaceAll(" ", "-")
+          : undefined,
       name: createNameFromEmail(normalizedEmail),
       email: normalizedEmail,
       avatar: createAvatar(normalizedEmail),

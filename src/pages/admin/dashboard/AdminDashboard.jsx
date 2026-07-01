@@ -25,8 +25,8 @@ export default function AdminDashboard() {
   return (
     <div>
       <PageHeader
-        title="Admin Dashboard"
-        subtitle="Monitor users, employers, job postings, AI models, resume reviews, and system activity."
+        title="Platform Admin Dashboard"
+        subtitle="Monitor candidates, company employer accounts, job postings, AI models, resume reviews, reports, and system activity."
       />
 
       <AdminStats />
@@ -50,7 +50,7 @@ function AdminStats() {
       <StatCard
         label="Total Users"
         value={adminStats.totalUsers}
-        change="Candidates, employers, admins"
+        change="Candidates, companies, admins"
         icon={Users}
         tone="primary"
       />
@@ -64,7 +64,7 @@ function AdminStats() {
       />
 
       <StatCard
-        label="Employers"
+        label="Company Accounts"
         value={adminStats.totalEmployers}
         change="Registered companies"
         icon={ShieldCheck}

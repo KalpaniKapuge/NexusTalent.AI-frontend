@@ -8,7 +8,7 @@ export default function StatCard({
 }) {
   const toneClasses = {
     primary:
-      "bg-indigo-50 text-indigo-600 dark:bg-indigo-950/30 dark:text-indigo-300",
+      "bg-orange-50 text-orange-600 dark:bg-orange-950/30 dark:text-orange-300",
     success:
       "bg-emerald-50 text-emerald-600 dark:bg-emerald-950/30 dark:text-emerald-300",
     warning:
@@ -24,7 +24,7 @@ export default function StatCard({
   return (
     <div
       className={[
-        "rounded-3xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900",
+        "rounded-lg border border-slate-200 bg-white p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-950",
         className,
       ].join(" ")}
     >
@@ -34,7 +34,7 @@ export default function StatCard({
             {label}
           </p>
 
-          <h2 className="mt-2 text-3xl font-black tracking-tight text-slate-950 dark:text-white">
+          <h2 className="mt-2 text-3xl font-semibold text-slate-950 dark:text-white">
             {value}
           </h2>
 
@@ -48,7 +48,7 @@ export default function StatCard({
         {Icon && (
           <div
             className={[
-              "flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl",
+              "flex h-12 w-12 shrink-0 items-center justify-center rounded-lg",
               toneClasses[tone] || toneClasses.primary,
             ].join(" ")}
           >

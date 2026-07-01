@@ -23,8 +23,12 @@ import ResumeUpload from "../pages/candidate/resume/ResumeUpload";
 import ResumeReview from "../pages/candidate/resume/ResumeReview";
 import JobSearch from "../pages/candidate/jobs/JobSearch";
 import JobDetail from "../pages/candidate/jobs/JobDetail";
+import RecommendedJobs from "../pages/candidate/jobs/RecommendedJobs";
+import SavedJobs from "../pages/candidate/jobs/SavedJobs";
 import MyApplications from "../pages/candidate/applications/MyApplications";
 import SkillGapAnalysis from "../pages/candidate/skill-gap/SkillGapAnalysis";
+import FeedbackHistory from "../pages/candidate/feedback/FeedbackHistory";
+import InterviewInvitations from "../pages/candidate/interviews/InterviewInvitations";
 import CandidateNotifications from "../pages/candidate/notifications/CandidateNotifications";
 import CandidateSettings from "../pages/candidate/settings/CandidateSettings";
 
@@ -39,6 +43,8 @@ import CandidateDetail from "../pages/employer/applications/CandidateDetail";
 import CandidateRanking from "../pages/employer/applications/CandidateRanking";
 import CandidateComparison from "../pages/employer/applications/CandidateComparison";
 import EmployerInterviews from "../pages/employer/interviews/EmployerInterviews";
+import InterviewDetail from "../pages/employer/interviews/InterviewDetail";
+import ScheduleInterview from "../pages/employer/interviews/ScheduleInterview";
 import EmployerFeedback from "../pages/employer/feedback/EmployerFeedback";
 import EmployerReports from "../pages/employer/reports/EmployerReports";
 import EmployerNotifications from "../pages/employer/notifications/EmployerNotifications";
@@ -46,15 +52,15 @@ import EmployerSettings from "../pages/employer/settings/EmployerSettings";
 
 import AdminDashboard from "../pages/admin/dashboard/AdminDashboard";
 import ManageUsers from "../pages/admin/users/ManageUsers";
-import ManageCandidates from "../pages/admin/candidates/ManageCandidates";
+import ManageCandidates from "../pages/admin/users/ManageCandidates";
 import ManageEmployers from "../pages/admin/employers/ManageEmployers";
 import ManageJobPostings from "../pages/admin/jobs/ManageJobPostings";
 import ManageSkills from "../pages/admin/skills/ManageSkills";
 import AIModels from "../pages/admin/ai-models/AIModels";
 import ModelEvaluation from "../pages/admin/ai-models/ModelEvaluation";
 import ResumeExtractionReview from "../pages/admin/resume-review/ResumeExtractionReview";
-import ChatbotKnowledge from "../pages/admin/chatbot/ChatbotKnowledge";
-import EmailTemplates from "../pages/admin/email-templates/EmailTemplates";
+import ChatbotKnowledge from "../pages/admin/chatbot/ChatbotKnowledgeBase";
+import EmailTemplates from "../pages/admin/email/EmailTemplates";
 import AdminNotifications from "../pages/admin/notifications/AdminNotifications";
 import AdminReports from "../pages/admin/reports/AdminReports";
 import AuditLogs from "../pages/admin/audit-logs/AuditLogs";
@@ -90,9 +96,13 @@ export default function AppRoutes() {
             <Route path="resume-upload" element={<ResumeUpload />} />
             <Route path="resume-review" element={<ResumeReview />} />
             <Route path="jobs" element={<JobSearch />} />
+            <Route path="recommended-jobs" element={<RecommendedJobs />} />
+            <Route path="saved-jobs" element={<SavedJobs />} />
             <Route path="jobs/:jobId" element={<JobDetail />} />
             <Route path="applications" element={<MyApplications />} />
             <Route path="skill-gap" element={<SkillGapAnalysis />} />
+            <Route path="feedback" element={<FeedbackHistory />} />
+            <Route path="interviews" element={<InterviewInvitations />} />
             <Route
               path="notifications"
               element={<CandidateNotifications />}
@@ -129,6 +139,8 @@ export default function AppRoutes() {
               element={<CandidateComparison />}
             />
             <Route path="interviews" element={<EmployerInterviews />} />
+            <Route path="interviews/schedule" element={<ScheduleInterview />} />
+            <Route path="interviews/:interviewId" element={<InterviewDetail />} />
             <Route path="feedback" element={<EmployerFeedback />} />
             <Route path="reports" element={<EmployerReports />} />
             <Route
